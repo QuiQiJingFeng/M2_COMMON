@@ -1,0 +1,30 @@
+syntax = "proto2";
+package msg.login;
+
+enum LoginType {
+    debug = 1;
+    reconnect = 2;
+}
+
+enum Result {
+    success = 1;
+    fail = 2;
+    unknow_login_type = 3;
+    auth_fail = 4;
+}
+
+message LoginReq {
+    required LoginType login_type = 1;
+    required string user_id = 2;
+    required string token = 3;
+}
+message LoginRsp {
+    required Result result = 1;
+    required string reconnect_token = 2;
+}
+
+message LogoutReq {
+}
+message LogoutRsp {
+    required Result result = 1;
+}
