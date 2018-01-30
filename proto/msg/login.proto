@@ -15,12 +15,13 @@ enum Result {
 
 message LoginReq {
     required LoginType login_type = 1;
-    required string user_id = 2;
+    required string account = 2;
     required string token = 3;
 }
 message LoginRsp {
     required Result result = 1;
     required string reconnect_token = 2;
+    optional string user_id = 3;
 }
 
 message LogoutReq {
