@@ -16,5 +16,5 @@ message Handshake {
 }
 
 message Heartbeat {
-    required int32 timestamp = 1;
+
 }

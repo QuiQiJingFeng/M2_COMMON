@@ -1,0 +1,43 @@
+syntax = "proto2";
+package msg.user;
+
+message UserInfo {
+	required string user_id = 1;
+	required string user_name = 2;
+}
+
+message QueryInfoReq {
+}
+
+message QueryInfoRsp {
+    required int32 gold_num = 1;
+}
+
+message CreateRoomReq {
+	
+}
+
+message CreateRoomRsp {
+	required string result = 1;
+	optional string room_id = 2;
+	repeated UserInfo players = 3;
+}
+
+message PushTest {
+	required string msg = 1;
+}
+
+message RefreshRoomInfo {
+	optional string room_id = 2;
+	repeated UserInfo players = 3;
+}
+
+message JoinRoomReq {
+	required string room_id = 1;
+}
+
+message JoinRoomRsp {
+	required string result = 1;
+	optional string room_id = 2;
+	repeated UserInfo players = 3;
+}

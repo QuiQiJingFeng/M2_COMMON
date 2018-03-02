@@ -11,6 +11,7 @@ enum Result {
     fail = 2;
     unknow_login_type = 3;
     auth_fail = 4;
+    create_user_name = 5;
 }
 
 message LoginReq {
@@ -20,7 +21,7 @@ message LoginReq {
 }
 message LoginRsp {
     required Result result = 1;
-    required string reconnect_token = 2;
+    optional string reconnect_token = 2;
     optional string user_id = 3;
 }
 
@@ -29,3 +30,4 @@ message LogoutReq {
 message LogoutRsp {
     required Result result = 1;
 }
+

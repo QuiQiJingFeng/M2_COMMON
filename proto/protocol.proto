@@ -1,7 +1,7 @@
 syntax = "proto2";
 import "msg/common.proto";
 import "msg/login.proto";
-import "msg/test.proto";
+import "msg/user.proto";
 
 message C2S {
 	optional uint32 session_id = 1;                                 // 会话ID
@@ -14,8 +14,9 @@ message C2S {
     optional msg.login.LoginReq login = 20;                         // 登录
     optional msg.login.LogoutReq logout = 21;                       // 登出
 
-    // ===================测试====================
-    optional msg.test.Test test = 10001;
+    // ===================查询个人信息====================
+    optional msg.user.CreateRoomReq create_room = 10001;
+    optional msg.user.JoinRoomReq join_room = 10003;
 
 }
 
@@ -31,7 +32,11 @@ message S2C {
     optional msg.login.LoginRsp login = 20;                         // 登录
     optional msg.login.LogoutRsp logout = 21;                       // 登出
 
-    // ===================测试====================
-    optional msg.test.Test test = 10001;
+    // ===================查询个人信息====================
+    optional msg.user.CreateRoomRsp create_room = 10001;
+    //====================推送消息=======================
+    optional msg.user.RefreshRoomInfo refresh_room_info = 10002;
+    optional msg.user.JoinRoomRsp join_room = 10003;
+
 
 }
