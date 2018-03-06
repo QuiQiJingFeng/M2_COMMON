@@ -19,7 +19,7 @@ message CreateRoomReq {
 
 message CreateRoomRsp {
 	required string result = 1;
-	optional string room_id = 2;
+	optional int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
 
@@ -28,16 +28,32 @@ message PushTest {
 }
 
 message RefreshRoomInfo {
-	optional string room_id = 2;
+	optional int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
 
 message JoinRoomReq {
-	required string room_id = 1;
+	required int32 room_id = 1;
 }
 
 message JoinRoomRsp {
 	required string result = 1;
-	optional string room_id = 2;
+	optional int32 room_id = 2;
 	repeated UserInfo players = 3;
+}
+
+message PrePareReq {
+	required int32 room_id;
+}
+
+message PrePareRsp {
+	required string result = 1;
+}
+
+message PrePareReq {
+	required int32 room_id;
+}
+
+message PrePareRsp {
+	required string result = 1;
 }
