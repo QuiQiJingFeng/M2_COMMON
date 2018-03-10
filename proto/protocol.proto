@@ -52,7 +52,7 @@ message S2C {
     optional msg.user.NoticeOtherDeal notice_other_deal = 20005;    //通知其他人有人摸牌
     optional msg.user.NoticeChuPai notice_chu_pai = 20006;          //通知其他人有人出牌
     optional msg.user.NoticePlayerState notice_player_state = 20007;//通知客户端当前 碰/杠/胡 状态
-    optional msg.user.NoticeGameOver notice_game_over = 2008;       //通知客户端 本局结束
+    optional msg.user.NoticeGameOver notice_game_over = 20008;       //通知客户端 本局结束
 
 
 }
