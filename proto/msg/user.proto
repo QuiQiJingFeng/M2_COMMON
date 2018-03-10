@@ -1,16 +1,24 @@
 syntax = "proto2";
 package msg.user;
 
+/*-------------------用户信息-----------------------*/
+
 message UserInfo {
 	required string user_id = 1;
 	required string user_name = 2;
+	required string user_pic = 3;
+	required int32  user_pos = 4;
 }
+/*-------------------------------------------------*/
 
-message QueryInfoReq {
-}
 
-message QueryInfoRsp {
-    required int32 gold_num = 1;
+
+/*--------------------创建房间----------------------*/
+
+enum CreateRoomResult {
+	success = 1;
+	fail = 2;
+	already_in_room = 3;      //已经在房间中了
 }
 
 message CreateRoomReq {
@@ -18,18 +26,23 @@ message CreateRoomReq {
 }
 
 message CreateRoomRsp {
-	required string result = 1;
-	optional int32 room_id = 2;
+	required CreateRoomResult result = 1;
+	required int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
+/*-------------------------------------------------*/
 
-message PushTest {
-	required string msg = 1;
-}
 
-message RefreshRoomInfo {
-	optional int32 room_id = 2;
-	repeated UserInfo players = 3;
+
+
+
+
+/*------------------加入房间----------------------*/
+
+enum JoinRoomResult {
+	success = 1;
+	fail = 2;
+	already_in_room = 3;      //已经在房间中了
 }
 
 message JoinRoomReq {
@@ -37,23 +50,172 @@ message JoinRoomReq {
 }
 
 message JoinRoomRsp {
-	required string result = 1;
-	optional int32 room_id = 2;
+	required JoinRoomResult result = 1;
+	required int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
+/*-------------------------------------------------*/
 
-message PrePareReq {
-	required int32 room_id;
+
+
+
+
+/*------------------离开房间----------------------*/
+
+enum LeaveRoomResult {
+	success = 1;
+	fail = 2;
 }
 
-message PrePareRsp {
-	required string result = 1;
+message LeaveRoomReq {
 }
 
-message PrePareReq {
-	required int32 room_id;
+message LeaveRoomRsp {
+	required LeaveRoomResult result = 1;
+}
+/*-------------------------------------------------*/
+
+
+
+
+
+/*-----------------玩家准备-----------------------*/
+enum PrepareResult {
+	success = 1;
+	fail = 2;
+	not_in_room = 3;   //没有在房间中
 }
 
-message PrePareRsp {
-	required string result = 1;
+message PrepareReq {
 }
+
+message PrepareRsp {
+	required PrepareResult result = 1;
+}
+/*-------------------------------------------------*/
+
+
+
+
+
+
+/*-----------------发牌完毕-----------------------*/
+enum FinishDealResult {
+	success = 1;
+	fail = 2;
+	not_in_room = 3;   //没有在房间中
+}
+message FinishDealReq {
+}
+
+message FinishDealRsp {
+	required FinishDealResult result = 1;
+}
+/*-------------------------------------------------*/
+enum GameCmdResult {
+	success = 1;
+	fail = 2;
+	nosupport_command = 3;  //不支持的命令
+	invailed_user_id = 4;   //当前不该这个user_id出牌
+	no_card = 5;            //没有这张牌
+	cannot_hu = 6;			//不能胡牌
+	cannot_peng = 7;        //不能碰牌
+	cannot_gang = 8;        //不能杠
+	cord_command = 9;       //已经记录该命令,无法立即处理
+}
+
+message Command {
+	CHI = 1;		//吃
+	PENG = 2;		//碰
+	GANG = 3;		//杠
+	HU_PAI  = 4;	//胡牌
+	CHU_PAI = 5;	//出牌
+}
+
+message GameCmdReq {
+	required Command command = 1;
+	optional int32  card = 2;
+}
+
+message GameCmdRsp {
+	required GameCmdResult result = 1;
+}
+
+/*-------------------游戏命令-----------------------*/
+
+
+
+
+
+
+
+//-------------------推送消息------------------------------//
+
+/*-------------------刷新房间信息-------------------*/
+message RefreshRoomInfo {
+	required int32 room_id = 1;
+	repeated UserInfo players = 2;
+}
+/*-------------------------------------------------*/
+
+
+
+/*-------------------发牌-----------------*/
+message DealCard {
+	required int32 zhuang_pos = 1;   //庄家的位置
+	repeated int32 cards = 2;		 //玩家发到手里的牌
+}
+/*-------------------------------------------------*/
+
+/*-------------------发一张牌-----------------*/
+message DealOneCard {
+	required int32 card = 1;
+}
+/*-------------------------------------------------*/
+
+
+
+/*-------------------自摸-----------------*/
+message ZiMo {
+	optional boolean zi_mo = 1;
+}
+/*-------------------------------------------------*/
+
+
+/*-------------------通知其他人有人摸牌-----------------*/
+message NoticeOtherDeal {
+	required string user_id = 1;
+}
+/*-------------------------------------------------*/
+
+
+/*-------------------通知其他人有人出牌-----------------*/
+message NoticeChuPai {
+	required string user_id = 1;
+	required int32 card = 2;
+}
+/*-------------------------------------------------*/
+
+/*-------------------通知客户端当前 碰/杠/胡 状态-----------------*/
+message NoticePlayerState {
+	optional boolean hu = 1;
+	optional boolean gang = 2;
+	optional boolean peng = 3;
+}
+/*-------------------------------------------------*/
+
+
+/*-------------------通知客户端 本局结束-----------------*/
+message Item {
+	required string user_id = 1;   //玩家ID
+	required int32  score = 2;	   //玩家积分
+	repeated int32  card_list = 3; //玩家手里的牌
+}
+
+message NoticeGameOver {
+	required string user_id = 1; //胜利的玩家ID
+	repeated Item players = 2;   //玩家的信息
+}
+
+/*-------------------------------------------------*/
+

@@ -2,32 +2,34 @@ syntax = "proto2";
 package msg.login;
 
 enum LoginType {
-    debug = 1;
+    weixin = 1;
     reconnect = 2;
 }
 
-enum Result {
+enum LoginResult {
     success = 1;
     fail = 2;
-    unknow_login_type = 3;
-    auth_fail = 4;
-    create_user_name = 5;
+    unknow_login_type = 3;  //登陆类型错误
+    auth_fail = 4;          //校验失败
 }
 
 message LoginReq {
-    required LoginType login_type = 1;
-    required string account = 2;
-    required string token = 3;
+    required LoginType login_type = 1;              //登陆类型  weixin/reconnect 两种
+    required string account = 2;                    //账户 如果是微信的话 则是UID
+    required string token = 3;                      //密码 如果是微信的话 则是token
+    required string user_name = 4;                  //微信的昵称
+    required string user_pic = 5;                   //微信头像的url
 }
+
 message LoginRsp {
-    required Result result = 1;
-    optional string reconnect_token = 2;
-    optional string user_id = 3;
+    required LoginResult result = 1;                //登陆的结果
+    optional string reconnect_token = 2;            //重连的token 如果是登陆才会返回
+    optional string user_id = 3;                    //用户ID    登陆才会返回
 }
 
 message LogoutReq {
 }
 message LogoutRsp {
-    required Result result = 1;
+    required LoginResult result = 1;
 }
 
