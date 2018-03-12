@@ -45,14 +45,18 @@ message S2C {
 
 
     //====================推送消息=======================
-    optional msg.user.RefreshRoomInfo refresh_room_info = 20001;   //刷新房间信息
-    optional msg.user.DealCard deal_card = 20002;                   //发牌
-    optional msg.user.DealOneCard deal_one_card = 20003;            //发一张牌(摸牌)
-    optional msg.user.ZiMo zi_mo = 20004;                           //自摸
-    optional msg.user.NoticeOtherDeal notice_other_deal = 20005;    //通知其他人有人摸牌
-    optional msg.user.NoticeChuPai notice_chu_pai = 20006;          //通知其他人有人出牌
-    optional msg.user.NoticePlayerState notice_player_state = 20007;//通知客户端当前 碰/杠/胡 状态
-    optional msg.user.NoticeGameOver notice_game_over = 20008;       //通知客户端 本局结束
+    
+    optional msg.user.PushUserInfo push_user_info = 20001;   //刷新房间信息
+
+
+    optional msg.user.RefreshRoomInfo refresh_room_info = 30001;   //刷新房间信息
+    optional msg.user.DealCard deal_card = 30002;                   //发牌
+    optional msg.user.DealOneCard deal_one_card = 30003;            //发一张牌(摸牌)
+    optional msg.user.ZiMo zi_mo = 30004;                           //自摸
+    optional msg.user.NoticeOtherDeal notice_other_deal = 30005;    //通知其他人有人摸牌
+    optional msg.user.NoticeChuPai notice_chu_pai = 30006;          //通知其他人有人出牌
+    optional msg.user.NoticePlayerState notice_player_state = 30007;//通知客户端当前 碰/杠/胡 状态
+    optional msg.user.NoticeGameOver notice_game_over = 30008;       //通知客户端 本局结束
 
 
 }

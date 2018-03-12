@@ -16,17 +16,13 @@ enum Result {
 	not_exist_room = 12;	 //不存在这个房间
 }
 
-enum GameType {
-	HZMJ = 1;		//红中麻将
-}
-
 /*-------------------用户信息-----------------------*/
 
 message UserInfo {
 	required string user_id = 1;
 	required string user_name = 2;
 	required string user_pic = 3;
-	required int32  user_pos = 4;
+	required string user_ip = 4;
 }
 /*-------------------------------------------------*/
 
@@ -34,7 +30,14 @@ message UserInfo {
 
 /*--------------------创建房间----------------------*/
 message CreateRoomReq {
-	required GameType game_type = 1;
+	required int32 game_type = 1; 	 //游戏的类型
+	required int32 round = 2;        //游戏的圈数
+	required int32 pay_type = 3;     //支付类型 房主出资还是平摊
+	required int32 seat_num = 4;     //游戏的人数
+	required bool is_friend_room = 5; //是否只让好友进入
+	required bool is_open_voice = 6; //是否开启语音聊天
+	required bool is_open_gps = 7;   //是否开启GPS防作弊
+	repeated int32 other_setting = 8; //具体游戏的设置
 }
 
 message CreateRoomRsp {
@@ -70,9 +73,6 @@ message LeaveRoomRsp {
 	required Result result = 1;
 }
 /*-------------------------------------------------*/
-
-
-
 
 
 /*-----------------玩家准备-----------------------*/
@@ -121,6 +121,18 @@ message GameCmdRsp {
 
 
 //-------------------推送消息------------------------------//
+
+message PushUserInfo {
+	optional string user_id = 1;
+	optional string user_name = 2;
+	optional string user_pic = 3;
+	optional string user_ip = 4;
+	optional int32  gold_num = 5;
+}
+
+
+
+
 
 /*-------------------刷新房间信息-------------------*/
 message RefreshRoomInfo {

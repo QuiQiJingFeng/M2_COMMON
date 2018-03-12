@@ -24,7 +24,6 @@ message LoginReq {
 message LoginRsp {
     required LoginResult result = 1;                //登陆的结果
     optional string reconnect_token = 2;            //重连的token 如果是登陆才会返回
-    optional string user_id = 3;                    //用户ID    登陆才会返回
 }
 
 message LogoutReq {
