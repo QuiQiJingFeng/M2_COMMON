@@ -1,6 +1,25 @@
 syntax = "proto2";
 package msg.user;
 
+enum Result {
+	success = 1;
+	fail = 2;
+	already_in_room = 3;      //已经在房间中了
+	not_in_room = 4;   //没有在房间中
+	nosupport_command = 5;  //不支持的命令
+	invailed_user_id = 6;   //当前不该这个user_id出牌
+	no_card = 7;            //没有这张牌
+	cannot_hu = 8;			//不能胡牌
+	cannot_peng = 9;        //不能碰牌
+	cannot_gang = 10;        //不能杠
+	cord_command = 11;       //已经记录该命令,无法立即处理
+	not_exist_room = 12;	 //不存在这个房间
+}
+
+enum GameType {
+	HZMJ = 1;		//红中麻将
+}
+
 /*-------------------用户信息-----------------------*/
 
 message UserInfo {
@@ -14,44 +33,26 @@ message UserInfo {
 
 
 /*--------------------创建房间----------------------*/
-
-enum CreateRoomResult {
-	success = 1;
-	fail = 2;
-	already_in_room = 3;      //已经在房间中了
-}
-
 message CreateRoomReq {
-	
+	required GameType game_type = 1;
 }
 
 message CreateRoomRsp {
-	required CreateRoomResult result = 1;
-	required int32 room_id = 2;
+	required Result result = 1;
+	optional int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
 
-
-
-
-
-
 /*------------------加入房间----------------------*/
-
-enum JoinRoomResult {
-	success = 1;
-	fail = 2;
-	already_in_room = 3;      //已经在房间中了
-}
 
 message JoinRoomReq {
 	required int32 room_id = 1;
 }
 
 message JoinRoomRsp {
-	required JoinRoomResult result = 1;
-	required int32 room_id = 2;
+	required Result result = 1;
+	optional int32 room_id = 2;
 	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
@@ -62,16 +63,11 @@ message JoinRoomRsp {
 
 /*------------------离开房间----------------------*/
 
-enum LeaveRoomResult {
-	success = 1;
-	fail = 2;
-}
-
 message LeaveRoomReq {
 }
 
 message LeaveRoomRsp {
-	required LeaveRoomResult result = 1;
+	required Result result = 1;
 }
 /*-------------------------------------------------*/
 
@@ -80,17 +76,11 @@ message LeaveRoomRsp {
 
 
 /*-----------------玩家准备-----------------------*/
-enum PrepareResult {
-	success = 1;
-	fail = 2;
-	not_in_room = 3;   //没有在房间中
-}
-
 message PrepareReq {
 }
 
 message PrepareRsp {
-	required PrepareResult result = 1;
+	required Result result = 1;
 }
 /*-------------------------------------------------*/
 
@@ -100,31 +90,15 @@ message PrepareRsp {
 
 
 /*-----------------发牌完毕-----------------------*/
-enum FinishDealResult {
-	success = 1;
-	fail = 2;
-	not_in_room = 3;   //没有在房间中
-}
 message FinishDealReq {
 }
 
 message FinishDealRsp {
-	required FinishDealResult result = 1;
+	required Result result = 1;
 }
 /*-------------------------------------------------*/
-enum GameCmdResult {
-	success = 1;
-	fail = 2;
-	nosupport_command = 3;  //不支持的命令
-	invailed_user_id = 4;   //当前不该这个user_id出牌
-	no_card = 5;            //没有这张牌
-	cannot_hu = 6;			//不能胡牌
-	cannot_peng = 7;        //不能碰牌
-	cannot_gang = 8;        //不能杠
-	cord_command = 9;       //已经记录该命令,无法立即处理
-}
 
-message Command {
+enum Command {
 	CHI = 1;		//吃
 	PENG = 2;		//碰
 	GANG = 3;		//杠
@@ -138,13 +112,10 @@ message GameCmdReq {
 }
 
 message GameCmdRsp {
-	required GameCmdResult result = 1;
+	required Result result = 1;
 }
 
 /*-------------------游戏命令-----------------------*/
-
-
-
 
 
 
@@ -177,7 +148,7 @@ message DealOneCard {
 
 /*-------------------自摸-----------------*/
 message ZiMo {
-	optional boolean zi_mo = 1;
+	optional bool zi_mo = 1;
 }
 /*-------------------------------------------------*/
 
@@ -198,9 +169,9 @@ message NoticeChuPai {
 
 /*-------------------通知客户端当前 碰/杠/胡 状态-----------------*/
 message NoticePlayerState {
-	optional boolean hu = 1;
-	optional boolean gang = 2;
-	optional boolean peng = 3;
+	optional bool hu = 1;
+	optional bool gang = 2;
+	optional bool peng = 3;
 }
 /*-------------------------------------------------*/
 
