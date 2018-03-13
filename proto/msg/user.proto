@@ -14,6 +14,7 @@ enum Result {
 	cannot_gang = 10;        //不能杠
 	cord_command = 11;       //已经记录该命令,无法立即处理
 	not_exist_room = 12;	 //不存在这个房间
+	sit_already_has = 13;    //座位已经有人了
 }
 
 /*-------------------用户信息-----------------------*/
@@ -23,7 +24,6 @@ message UserInfo {
 	required string user_name = 2;
 	required string user_pic = 3;
 	required string user_ip = 4;
-	optional int32  user_pos = 5;
 }
 /*-------------------------------------------------*/
 
@@ -73,11 +73,12 @@ message LeaveRoomRsp {
 /*-------------------------------------------------*/
 
 
-/*-----------------玩家准备-----------------------*/
-message PrepareReq {
+/*-----------------玩家入座-----------------------*/
+message SitDownReq {
+	required int32 pos = 1;
 }
 
-message PrepareRsp {
+message SitDownRsp {
 	required Result result = 1;
 }
 /*-------------------------------------------------*/
@@ -124,7 +125,16 @@ message RefreshRoomInfo {
 
 
 
-
+/*-------------------推送玩家入座信息-------------------*/
+message SitItem {
+	required string user_id = 1;
+	required int32 user_pos = 2;
+}
+message PushSitDown {
+	required int32 room_id = 1;
+	repeated SitItem sit_list = 2;
+}
+/*-------------------------------------------------*/
 
 
 

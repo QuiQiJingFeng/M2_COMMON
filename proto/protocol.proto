@@ -18,7 +18,9 @@ message C2S {
     optional msg.user.CreateRoomReq create_room = 10001;            //创建房间
     optional msg.user.JoinRoomReq join_room = 10002;                //加入房间
     optional msg.user.LeaveRoomReq leave_room = 10003;             //离开房间
-    optional msg.user.PrepareReq prepare = 10004;                  //准备
+
+
+    optional msg.user.SitDownReq sit_down = 10004;                    //入座
     optional msg.user.FinishDealReq finish_deal = 10005;           //掷骰子 和 发牌结束后通知服务端
     optional msg.user.GameCmdReq game_comd = 10006;                 //游戏开始后的命令
 }
@@ -39,17 +41,22 @@ message S2C {
     optional msg.user.CreateRoomRsp create_room = 10001;
     optional msg.user.JoinRoomRsp join_room = 10002;
     optional msg.user.LeaveRoomRsp leave_room = 10003;               
-    optional msg.user.PrepareRsp prepare = 10004;
+    optional msg.user.SitDownRsp sit_down = 10004;
     optional msg.user.FinishDealRsp finish_deal = 10005;  
     optional msg.user.GameCmdRsp game_comd = 10006;                  
 
 
     //====================推送消息=======================
     
-    optional msg.user.PushUserInfo push_user_info = 20001;   //刷新房间信息
+    optional msg.user.PushUserInfo push_user_info = 20001;   //推送玩家信息
+    optional msg.user.RefreshRoomInfo refresh_room_info = 20002;   //刷新房间信息
+
+    optional msg.user.PushSitDown push_sit_down = 20003;   //推送坐下的信息
 
 
-    optional msg.user.RefreshRoomInfo refresh_room_info = 30001;   //刷新房间信息
+
+
+
     optional msg.user.DealCard deal_card = 30002;                   //发牌
     optional msg.user.DealOneCard deal_one_card = 30003;            //发一张牌(摸牌)
     optional msg.user.ZiMo zi_mo = 30004;                           //自摸
