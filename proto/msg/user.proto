@@ -120,6 +120,14 @@ message PushUserInfo {
 message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
+	required int32 game_type = 3; 	 //游戏的类型
+	required int32 round = 4;        //游戏的圈数
+	required int32 pay_type = 5;     //支付类型 房主出资还是平摊
+	required int32 seat_num = 6;     //游戏的人数
+	required bool is_friend_room = 7; //是否只让好友进入
+	required bool is_open_voice = 8; //是否开启语音聊天
+	required bool is_open_gps = 9;   //是否开启GPS防作弊
+	repeated int32 other_setting = 10; //具体游戏的设置
 }
 /*-------------------------------------------------*/
 
