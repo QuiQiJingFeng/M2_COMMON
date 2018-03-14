@@ -186,7 +186,7 @@ message NoticePengCard {
 
 /*-------------------通知其他人有人杠牌-----------------*/
 enum GangType {
-	AN_GANG = 1,
+	AN_GANG = 1;
 	MING_GANG = 2;
 	PENG_GANG = 3;
 }
