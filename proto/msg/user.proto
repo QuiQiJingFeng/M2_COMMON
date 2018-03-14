@@ -86,7 +86,11 @@ message SitDownRsp {
 
 
 /*-------------------------------------------------*/
-
+//DEAL_FINISH  发牌完毕
+//PLAY_CARD  出牌
+//PENG    碰
+//GANG    杠
+//GUO     过
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
@@ -152,44 +156,71 @@ message DealCard {
 
 
 /*---------------通知其他人有人摸牌-----------------*/
-message PushCard {
-	required string user_id = 1;
-	required int32 card = 2;
+message PushDrawCard {
+	optional string user_id = 1;		//如果有user_id的话  说明不是本人摸牌
+	optional int32 card = 2;
 }
 /*-------------------------------------------------*/
 
 
+/*-------------------通知玩家该出牌了-----------------*/
+message PushPlayCard {
+}
 
-
-
-
-
+/*-------------------------------------------------*/
 
 /*-------------------通知其他人有人出牌-----------------*/
-message NoticeChuPai {
-	required string user_id = 1;
+message NoticePlayCard {
+	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
 	required int32 card = 2;
 }
 /*-------------------------------------------------*/
 
-/*-------------------通知客户端当前 碰/杠/胡 状态-----------------*/
-message NoticePlayerState {
-	optional bool hu = 1;
-	optional bool gang = 2;
-	optional bool peng = 3;
+
+/*-------------------通知其他人有人碰牌-----------------*/
+message NoticePengCard {
+	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	required int32 card = 2;
 }
 /*-------------------------------------------------*/
+
+/*-------------------通知其他人有人杠牌-----------------*/
+enum GangType {
+	AN_GANG = 1,
+	MING_GANG = 2;
+	PENG_GANG = 3;
+}
+
+message NoticeGangCard {
+	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	required int32 card = 2;
+	required GangType gang_type = 3;  //杠的类型
+}
+/*-------------------------------------------------*/
+
+
+
+
+/*-------------------通知客户端是否 碰/杠/胡 -----------------*/
+// oparator=> PENG/GANG/HU
+message PushPlayerOperatorState {
+	required string operator_state = 1;
+}
+/*-------------------------------------------------*/
+
+
+
 
 
 /*-------------------通知客户端 本局结束-----------------*/
 message Item {
 	required string user_id = 1;   //玩家ID
-	required int32  score = 2;	   //玩家积分
+	required int32  up_score = 2;  //玩家增加或减少的积分
 	repeated int32  card_list = 3; //玩家手里的牌
 }
 
 message NoticeGameOver {
-	required string user_id = 1; //胜利的玩家ID
+	required int32 type = 1;     // 1 正常结束 2 流局
 	repeated Item players = 2;   //玩家的信息
 }
 
