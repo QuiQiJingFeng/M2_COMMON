@@ -113,6 +113,7 @@ message PushUserInfo {
 	optional string user_pic = 3;
 	optional string user_ip = 4;
 	optional int32  gold_num = 5;
+	optional int32  user_pos = 6;
 }
 
 /*-------------------刷新房间信息-------------------*/
