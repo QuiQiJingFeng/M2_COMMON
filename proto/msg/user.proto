@@ -25,6 +25,7 @@ message UserInfo {
 	required string user_pic = 3;
 	required string user_ip = 4;
 	required int32  user_pos = 5;
+	required bool is_sit = 6;
 }
 /*-------------------------------------------------*/
 
