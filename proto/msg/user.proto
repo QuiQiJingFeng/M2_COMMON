@@ -171,7 +171,7 @@ message PushPlayCard {
 
 /*-------------------通知其他人有人出牌-----------------*/
 message NoticePlayCard {
-	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	required string user_id = 1;	  //需要判断user_id是否是本人
 	required int32 card = 2;
 }
 /*-------------------------------------------------*/
