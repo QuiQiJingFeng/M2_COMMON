@@ -15,6 +15,9 @@ enum Result {
 	cord_command = 11;       //已经记录该命令,无法立即处理
 	not_exist_room = 12;	 //不存在这个房间
 	sit_already_has = 13;    //座位已经有人了
+	no_bind_room_id = 14;    //玩家没有绑定房间ID
+	call_center_fail = 15;   //通知center服失败
+	invalid_paramater = 16;  //错误的参数
 }
 
 /*-------------------用户信息-----------------------*/
@@ -166,7 +169,18 @@ message PushDrawCard {
 
 
 /*-------------------通知玩家该出牌了-----------------*/
+//	AN_GANG
+//	MING_GANG
+//	PENG_GANG
+message GPItem {
+	required int32 value = 1;
+	optional int32 type = 2; //碰没有这个字段
+}
 message PushPlayCard {
+	required string user_id = 1;
+	repeated int32 card_list = 2;  //玩家的手牌
+	repeated GPItem peng_list = 3;	//碰列表
+	repeated GPItem gang_list = 4;	//杠列表
 }
 
 /*-------------------------------------------------*/
