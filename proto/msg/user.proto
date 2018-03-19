@@ -155,7 +155,8 @@ message PushSitDown {
 /*-------------------发牌-----------------*/
 message DealCard {
 	required int32 zpos = 1;   //庄家的位置
-	repeated int32 cards = 2;		 //玩家发到手里的牌
+	optional int32 user_pos = 2;
+	repeated int32 cards = 3;		 //玩家发到手里的牌
 }
 /*-------------------------------------------------*/
 
@@ -166,6 +167,7 @@ message DealCard {
 message PushDrawCard {
 	optional string user_id = 1;
 	optional int32 card = 2;	//如果不是本人摸牌,则没有card
+	optional int32 user_pos = 3;
 }
 /*-------------------------------------------------*/
 
@@ -180,9 +182,10 @@ message GPItem {
 }
 message PushPlayCard {
 	required string user_id = 1;
-	repeated int32 card_list = 2;  //玩家的手牌
-	repeated GPItem peng_list = 3;	//碰列表
-	repeated GPItem gang_list = 4;	//杠列表
+	optional int32 user_pos = 2;
+	repeated int32 card_list = 3;  //玩家的手牌
+	repeated GPItem peng_list = 4;	//碰列表
+	repeated GPItem gang_list = 5;	//杠列表
 }
 
 /*-------------------------------------------------*/
@@ -191,6 +194,7 @@ message PushPlayCard {
 message NoticePlayCard {
 	required string user_id = 1;
 	required int32 card = 2;
+	optional int32 user_pos = 3;
 }
 /*-------------------------------------------------*/
 
@@ -199,6 +203,7 @@ message NoticePlayCard {
 message NoticePengCard {
 	required string user_id = 1;
 	required int32 card = 2;
+	optional int32 user_pos = 3;
 }
 /*-------------------------------------------------*/
 
@@ -213,6 +218,7 @@ message NoticeGangCard {
 	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
 	required int32 card = 2;
 	required GangType gang_type = 3;  //杠的类型
+	optional int32 user_pos = 4;
 }
 /*-------------------------------------------------*/
 
@@ -223,6 +229,7 @@ message NoticeGangCard {
 // oparator=> PENG/GANG/HU
 message PushPlayerOperatorState {
 	required string operator_state = 1;
+	optional int32 user_pos = 3;
 }
 /*-------------------------------------------------*/
 
@@ -233,6 +240,7 @@ message Item {
 	required string user_id = 1;   //玩家ID
 	required int32  up_score = 2;  //玩家增加或减少的积分
 	repeated int32  card_list = 3; //玩家手里的牌
+	optional int32 user_pos = 4;
 }
 
 message NoticeGameOver {
@@ -246,6 +254,7 @@ message NoticeGameOver {
 
 message NoticePlayersDisconnect {
 	required string user_id = 1;
+	optional int32 user_pos = 3;
 }
 /*-------------------------------------------------*/
 
