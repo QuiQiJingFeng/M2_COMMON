@@ -18,6 +18,7 @@ enum Result {
 	no_bind_room_id = 14;    //玩家没有绑定房间ID
 	call_center_fail = 15;   //通知center服失败
 	invalid_paramater = 16;  //错误的参数
+	round_not_enough = 17;   //圈数不足
 }
 
 /*-------------------用户信息-----------------------*/
@@ -118,6 +119,7 @@ message PushUserInfo {
 	optional string user_pic = 3;
 	optional string user_ip = 4;
 	optional int32  gold_num = 5;
+	repeated int32  room_list = 6;   //玩家创建的所有房间号列表
 }
 
 /*-------------------刷新房间信息-------------------*/
@@ -162,8 +164,8 @@ message DealCard {
 
 /*---------------通知其他人有人摸牌-----------------*/
 message PushDrawCard {
-	optional string user_id = 1;		//如果有user_id的话  说明不是本人摸牌
-	optional int32 card = 2;
+	optional string user_id = 1;
+	optional int32 card = 2;	//如果不是本人摸牌,则没有card
 }
 /*-------------------------------------------------*/
 
@@ -187,7 +189,7 @@ message PushPlayCard {
 
 /*-------------------通知其他人有人出牌-----------------*/
 message NoticePlayCard {
-	required string user_id = 1;	  //需要判断user_id是否是本人
+	required string user_id = 1;
 	required int32 card = 2;
 }
 /*-------------------------------------------------*/
@@ -195,7 +197,7 @@ message NoticePlayCard {
 
 /*-------------------通知其他人有人碰牌-----------------*/
 message NoticePengCard {
-	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	required string user_id = 1;
 	required int32 card = 2;
 }
 /*-------------------------------------------------*/
@@ -226,8 +228,6 @@ message PushPlayerOperatorState {
 
 
 
-
-
 /*-------------------通知客户端 本局结束-----------------*/
 message Item {
 	required string user_id = 1;   //玩家ID
@@ -241,4 +241,23 @@ message NoticeGameOver {
 }
 
 /*-------------------------------------------------*/
+
+/*-------------------通知玩家有人掉线-----------------*/
+
+message NoticePlayersDisconnect {
+	required string user_id = 1;
+}
+/*-------------------------------------------------*/
+
+
+
+
+/*-------------------玩家错误处理-----------------*/
+
+message HandleError {
+}
+/*-------------------------------------------------*/
+
+
+
 

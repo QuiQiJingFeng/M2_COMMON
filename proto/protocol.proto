@@ -55,6 +55,10 @@ message S2C {
     optional msg.user.NoticeGangCard notice_gang_card = 20009;          //通知其他人有人杠牌
     optional msg.user.PushPlayerOperatorState push_player_operator_state = 20010;//通知客户端当前 碰/杠 状态
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
+    optional msg.user.NoticePlayersDisconnect notice_players_disconnect = 20012;       //通知客户端 有玩家掉线
+
+    optional msg.user.HandleError handle_error = 90001;  //玩家的错误处理方法
+
 
 
 }
