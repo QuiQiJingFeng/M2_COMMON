@@ -149,7 +149,6 @@ message DealCard {
 	repeated int32 cards = 3;		           //玩家发到手里的牌
 	repeated int32 random_nums = 4;            //两个骰子的数字
 	required int32 cur_round = 5;                  //当前局数
-	required int32 surplus_card_num = 6;       //剩余牌数量
 }
 /*-------------------------------------------------*/
 
