@@ -156,10 +156,16 @@ message DealCard {
 
 
 /*---------------通知其他人有人摸牌-----------------*/
+enum Operator {
+	MUO = 1;
+	PENG = 2;
+}
 message PushDrawCard {
 	optional string user_id = 1;
 	optional int32 card = 2;	//如果不是本人摸牌,则没有card
 	optional int32 user_pos = 3;
+	optional Operator operator = 4; 
+	
 }
 /*-------------------------------------------------*/
 
