@@ -62,17 +62,19 @@ message S2C {
     optional msg.user.NoticePengCard notice_peng_card = 20008;          //通知其他人有人碰牌
     optional msg.user.NoticeGangCard notice_gang_card = 20009;          //通知其他人有人杠牌
     optional msg.user.PushPlayerOperatorState push_player_operator_state = 20010;//通知客户端当前 碰/杠 状态
-    optional msg.user.NoticeGameOver notice_game_over = 20011;          //通知客户端 本局结束
 
+    optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
+    optional msg.user.NoticePlayersDisconnect notice_players_disconnect = 20012;       //通知客户端 有玩家掉线
+    optional msg.user.HandleError handle_error = 90001;  //玩家的错误处理方法
 
 
     //====================ddz_S2C=======================
-    optional msg.ddz.ServerPointDemand ServerPointDemand = 20012;       // ddz 通知玩家叫分
     optional msg.ddz.ServerSendCard ServerSendCard = 20013;             // ddz 通知玩家出牌
     optional msg.ddz.NoticePointDemand NoticePointDemand = 20014;       // ddz 消息-玩家叫分推送
     optional msg.ddz.NoticeMainPaleyer NoticeMainPaleyer = 20015;       // ddz 消息-地主产生
     optional msg.ddz.NoticeSendCard NoticeSendCard = 20016;             // ddz 消息-玩家出牌推送
+    optional msg.ddz.ServerPointDemand ServerPointDemand = 20017;       // ddz 通知玩家叫分
 
-
+    //====================ddz_S2C=======================
 
 }
