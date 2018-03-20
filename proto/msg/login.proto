@@ -6,7 +6,7 @@ enum LoginType {
     reconnect = 2;
 }
 
-enum LoginResult {
+enum Result {
     success = 1;
     fail = 2;
     unknow_login_type = 3;  //登陆类型错误
@@ -22,13 +22,24 @@ message LoginReq {
 }
 
 message LoginRsp {
-    required LoginResult result = 1;                //登陆的结果
+    required Result result = 1;                //登陆的结果
     optional string reconnect_token = 2;            //重连的token 如果是登陆才会返回
 }
 
 message LogoutReq {
 }
 message LogoutRsp {
-    required LoginResult result = 1;
+    required Result result = 1;
 }
+
+message ReconnectReq {
+    required string user_id = 1;
+    required string token = 2;
+}
+
+message ReconnectRsp {
+    required Result result = 1;
+}
+
+
 
