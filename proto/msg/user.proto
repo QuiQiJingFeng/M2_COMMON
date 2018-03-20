@@ -91,14 +91,31 @@ message SitDownRsp {
 
 
 /*-------------------------------------------------*/
-//DEAL_FINISH  发牌完毕
-//PLAY_CARD  出牌
-//PENG    碰
-//GANG    杠
-//GUO     过
+// DEAL_FINISH  发牌完毕
+// PLAY_CARD  出牌
+// PENG    碰
+// GANG    杠
+// GUO     过
+// DEMAND 	叫分
+// 
+
+// demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
+// SendCards  	// ddz出牌的数组
+
+// nowType 		// ddz当前出的牌的类型。(-1 是过)
+// nowValue		// ddz当前牌的最大类型值(飞机，最大值应该是飞机的最大的那个值， 而不是取最大的牌值)
+// cardList 	// ddz出牌消息 sizeof(cardList) == 20 最长是20个长度
+
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
+
+	// -------ddz----------------
+	optional int32 demandPoint = 3;  
+	optional int32 nowType = 4;
+	optional int32 nowValue = 5;
+	repeated int32 cardList = 6;
+	// -------ddz_end------------
 }
 
 message GameCmdRsp {
@@ -136,7 +153,6 @@ message RefreshRoomInfo {
 /*-------------------------------------------------*/
 
 
-
 /*-------------------推送玩家入座信息-------------------*/
 message SitItem {
 	required string user_id = 1;
@@ -148,16 +164,12 @@ message PushSitDown {
 }
 /*-------------------------------------------------*/
 
-
-
 /*-------------------发牌-----------------*/
 message DealCard {
 	required int32 zpos = 1;   //庄家的位置
 	repeated int32 cards = 2;		 //玩家发到手里的牌
 }
 /*-------------------------------------------------*/
-
-
 
 
 /*---------------通知其他人有人摸牌-----------------*/
@@ -215,17 +227,12 @@ message NoticeGangCard {
 /*-------------------------------------------------*/
 
 
-
-
 /*-------------------通知客户端是否 碰/杠/胡 -----------------*/
 // oparator=> PENG/GANG/HU
 message PushPlayerOperatorState {
 	required string operator_state = 1;
 }
 /*-------------------------------------------------*/
-
-
-
 
 
 /*-------------------通知客户端 本局结束-----------------*/
@@ -241,4 +248,16 @@ message NoticeGameOver {
 }
 
 /*-------------------------------------------------*/
+
+
+
+
+
+
+/*-------------------------------------------------*/
+
+
+
+
+
 
