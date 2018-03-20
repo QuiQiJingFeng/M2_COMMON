@@ -13,6 +13,9 @@ message C2S {
     // ===================登录====================
     optional msg.login.LoginReq login = 20;                         // 登录
     optional msg.login.LogoutReq logout = 21;                       // 登出
+    optional msg.login.ReconnectReq reconnect = 22;                 // 重连
+
+    
 
     // ===================房间相关====================
     optional msg.user.CreateRoomReq create_room = 10001;            //创建房间
@@ -33,6 +36,7 @@ message S2C {
     // ===================登录====================
     optional msg.login.LoginRsp login = 20;                         // 登录
     optional msg.login.LogoutRsp logout = 21;                       // 登出
+    optional msg.login.ReconnectRsp reconnect = 22;                 // 重连
 
     // ===================房间相关====================
     optional msg.user.CreateRoomRsp create_room = 10001;
@@ -57,7 +61,12 @@ message S2C {
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
     optional msg.user.NoticePlayersDisconnect notice_players_disconnect = 20012;       //通知客户端 有玩家掉线
 
+
+    optional msg.user.UpdateResource update_resource = 30001;
+
+
     optional msg.user.HandleError handle_error = 90001;  //玩家的错误处理方法
+    
 
 
 

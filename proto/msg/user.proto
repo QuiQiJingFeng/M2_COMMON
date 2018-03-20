@@ -2,41 +2,24 @@ syntax = "proto2";
 package msg.user;
 
 enum Result {
-	success = 1;
-	fail = 2;
-	already_in_room = 3;      //已经在房间中了
-	not_in_room = 4;   //没有在房间中
-	nosupport_command = 5;  //不支持的命令
-	invailed_user_id = 6;   //当前不该这个user_id出牌
-	no_card = 7;            //没有这张牌
-	cannot_hu = 8;			//不能胡牌
-	cannot_peng = 9;        //不能碰牌
-	cannot_gang = 10;        //不能杠
-	cord_command = 11;       //已经记录该命令,无法立即处理
-	not_exist_room = 12;	 //不存在这个房间
-	sit_already_has = 13;    //座位已经有人了
-	no_bind_room_id = 14;    //玩家没有绑定房间ID
-	call_center_fail = 15;   //通知center服失败
-	invalid_paramater = 16;  //错误的参数
-	round_not_enough = 17;   //圈数不足
+	success = 1;		  //成功
+	paramater_error = 2;  //客户端参数错误
+	server_error = 3;     //服务器错误
+	key_exchange_failed = 4; //密钥交换失败
+	other_player_login = 5;  //其他玩家登陆
+	auth_faild = 6;			//校验失败
+	gold_not_enough = 7;    //金币不足
+	current_in_game = 8;    //当前在游戏当中
+	not_exist_room = 9;     //不存在的房间
+	not_in_room = 10;       //当前不在房间中
+	sit_already_has = 11;   //已经有人坐下
+	round_not_enough = 12;  //圈数不足
+	pos_has_player = 13;    //位置已经有人坐了
+	already_sit = 14;       //当前已经坐下了,不需要发送多次
+
 }
 
-/*-------------------用户信息-----------------------*/
-
-message UserInfo {
-	required string user_id = 1;
-	required string user_name = 2;
-	required string user_pic = 3;
-	required string user_ip = 4;
-	required int32  user_pos = 5;
-	required bool is_sit = 6;
-}
-/*-------------------------------------------------*/
-
-
-
-/*--------------------创建房间----------------------*/
-message CreateRoomReq {
+message RoomSetting {
 	required int32 game_type = 1; 	 //游戏的类型
 	required int32 round = 2;        //游戏的圈数
 	required int32 pay_type = 3;     //支付类型 房主出资还是平摊
@@ -44,13 +27,17 @@ message CreateRoomReq {
 	required bool is_friend_room = 5; //是否只让好友进入
 	required bool is_open_voice = 6; //是否开启语音聊天
 	required bool is_open_gps = 7;   //是否开启GPS防作弊
-	repeated int32 other_setting = 8; //具体游戏的设置
+	repeated int32 other_setting = 8; //具体游戏的设置	
+}
+
+
+/*--------------------创建房间----------------------*/
+message CreateRoomReq {
+	required RoomSetting room_setting = 1;
 }
 
 message CreateRoomRsp {
 	required Result result = 1;
-	optional int32 room_id = 2;
-	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
 
@@ -62,8 +49,6 @@ message JoinRoomReq {
 
 message JoinRoomRsp {
 	required Result result = 1;
-	optional int32 room_id = 2;
-	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
 
@@ -123,17 +108,22 @@ message PushUserInfo {
 }
 
 /*-------------------刷新房间信息-------------------*/
+
+message UserInfo {
+	required string user_id = 1;		//玩家ID
+	required string user_name = 2;		//玩家名称
+	required string user_pic = 3;		//玩家图片
+	required string user_ip = 4;		//玩家IP
+	required int32  user_pos = 5;		//玩家位置
+	required bool is_sit = 6;			//是否入座
+	required float gold_num = 7;		//玩家金币的数量
+	required int32 score = 8;           //玩家的积分
+}
+
 message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
-	required int32 game_type = 3; 	 //游戏的类型
-	required int32 round = 4;        //游戏的圈数
-	required int32 pay_type = 5;     //支付类型 房主出资还是平摊
-	required int32 seat_num = 6;     //游戏的人数
-	required bool is_friend_room = 7; //是否只让好友进入
-	required bool is_open_voice = 8; //是否开启语音聊天
-	required bool is_open_gps = 9;   //是否开启GPS防作弊
-	repeated int32 other_setting = 10; //具体游戏的设置
+	required RoomSetting room_setting = 3;
 }
 /*-------------------------------------------------*/
 
@@ -154,9 +144,12 @@ message PushSitDown {
 
 /*-------------------发牌-----------------*/
 message DealCard {
-	required int32 zpos = 1;   //庄家的位置
-	optional int32 user_pos = 2;
-	repeated int32 cards = 3;		 //玩家发到手里的牌
+	required int32 zpos = 1;                   //庄家的位置
+	required int32 user_pos = 2;               //玩家的位置
+	repeated int32 cards = 3;		           //玩家发到手里的牌
+	repeated int32 random_nums = 4;            //两个骰子的数字
+	required int32 cur_round = 5;                  //当前局数
+	required int32 surplus_card_num = 6;       //剩余牌数量
 }
 /*-------------------------------------------------*/
 
@@ -264,9 +257,16 @@ message NoticePlayersDisconnect {
 /*-------------------玩家错误处理-----------------*/
 
 message HandleError {
+	optional string result = 1; 
 }
 /*-------------------------------------------------*/
 
 
+/*-------------------更新资源-----------------*/
+
+message UpdateResource {
+	optional int32 gold_num = 1; 
+}
+/*-------------------------------------------------*/
 
 
