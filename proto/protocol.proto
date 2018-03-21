@@ -27,7 +27,7 @@ message C2S {
 
     //===================ddz相关====================
 
-    //optional msg.user.ReqPointDemand game_cmd = 10005;                 //游戏开始后的命令
+    //optional msg.user.ReqPointDemand game_cmd = 20005;                 //游戏开始后的命令
     
 
 
@@ -70,6 +70,7 @@ message S2C {
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
     optional msg.user.NoticePlayersDisconnect notice_players_disconnect = 20012;       //通知客户端 有玩家掉线
 
+    optional msg.user.PushAllRoomInfo push_all_room_info = 2013;        //推送房间所有的信息,重新返回房间时用到
 
     optional msg.user.UpdateResource update_resource = 30001;
 

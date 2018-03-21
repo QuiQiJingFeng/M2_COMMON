@@ -18,7 +18,26 @@ enum Result {
 	already_sit = 14;       //当前已经坐下了,不需要发送多次
 	invaild_operator = 15;  //无效的操作
 	no_support_command = 16;//无效的命令
+}
 
+//	AN_GANG
+//	MING_GANG
+//	PENG_GANG
+message GPItem {
+	required int32 value = 1;
+	optional int32 type = 2; //碰没有这个字段
+	optional string from = 3;//来自哪个玩家
+}
+
+message UserInfo {
+	required string user_id = 1;		//玩家ID
+	required string user_name = 2;		//玩家名称
+	required string user_pic = 3;		//玩家图片
+	required string user_ip = 4;		//玩家IP
+	required int32  user_pos = 5;		//玩家位置
+	required bool is_sit = 6;			//是否入座
+	required float gold_num = 7;		//玩家金币的数量
+	required int32 score = 8;           //玩家的积分
 }
 
 message RoomSetting {
@@ -77,7 +96,6 @@ message SitDownRsp {
 /*-------------------------------------------------*/
 
 
-
 /*-------------------------------------------------*/
 // DEAL_FINISH  发牌完毕
 // PLAY_CARD  出牌
@@ -85,7 +103,7 @@ message SitDownRsp {
 // GANG    杠
 // GUO     过
 // DEMAND 	叫分
-// 
+// BACK_ROOM  //返回房间
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -128,17 +146,6 @@ message PushUserInfo {
 
 /*-------------------刷新房间信息-------------------*/
 
-message UserInfo {
-	required string user_id = 1;		//玩家ID
-	required string user_name = 2;		//玩家名称
-	required string user_pic = 3;		//玩家图片
-	required string user_ip = 4;		//玩家IP
-	required int32  user_pos = 5;		//玩家位置
-	required bool is_sit = 6;			//是否入座
-	required float gold_num = 7;		//玩家金币的数量
-	required int32 score = 8;           //玩家的积分
-}
-
 message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
@@ -179,14 +186,6 @@ message PushDrawCard {
 /*-------------------------------------------------*/
 
 /*-------------------通知玩家该出牌了-----------------*/
-//	AN_GANG
-//	MING_GANG
-//	PENG_GANG
-message GPItem {
-	required int32 value = 1;
-	optional int32 type = 2; //碰没有这个字段
-	optional string from = 3;//来自哪个玩家
-}
 
 message PushPlayCard {
 	required string user_id = 1;
@@ -238,6 +237,7 @@ message NoticeGangCard {
 message PushPlayerOperatorState {
 	required string operator_state = 1;
 	optional int32 user_pos = 2;
+	optional string user_id = 3;
 }
 /*-------------------------------------------------*/
 
@@ -268,6 +268,27 @@ message NoticePlayersDisconnect {
 
 
 
+/*-----------------重新返回房间的时候推送所有的数据-----------------------*/
+message PlayerInfo {
+	required string user_id = 1;		//玩家ID
+	required string user_name = 2;		//玩家名称
+	required string user_pic = 3;		//玩家图片
+	required string user_ip = 4;		//玩家IP
+	required int32  user_pos = 5;		//玩家位置
+	required bool is_sit = 6;			//是否入座
+	required float gold_num = 7;		//玩家金币的数量
+	required int32 score = 8;           //玩家的积分
+	repeated GPItem	peng_list = 9;      //玩家碰的牌
+	repeated GPItem	gang_list = 10;     //玩家杠的牌
+}
+
+message PushAllRoomInfo {
+	required RoomSetting room_setting = 1;  //房间的设置
+	repeated int32 card_list = 2;           //玩家的手牌
+	repeated PlayerInfo players = 3;        //当前玩家列表信息
+	optional string operator = 4;           //如果当前是本人操作,则返回,否则不返回
+}
+/*-------------------------------------------------*/
 
 
 
