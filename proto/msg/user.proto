@@ -185,6 +185,7 @@ message PushDrawCard {
 message GPItem {
 	required int32 value = 1;
 	optional int32 type = 2; //碰没有这个字段
+	optional string from = 3;//来自哪个玩家
 }
 
 message PushPlayCard {
