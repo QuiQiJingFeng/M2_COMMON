@@ -176,7 +176,6 @@ message PushDrawCard {
 }
 /*-------------------------------------------------*/
 
-
 /*-------------------通知玩家该出牌了-----------------*/
 //	AN_GANG
 //	MING_GANG
@@ -185,17 +184,15 @@ message GPItem {
 	required int32 value = 1;
 	optional int32 type = 2; //碰没有这个字段
 }
-enum Operator {
-	MUO = 1;
-	PENG = 2;
-}
+
 message PushPlayCard {
 	required string user_id = 1;
 	optional int32 user_pos = 2;
-	repeated int32 card_list = 3;  //玩家的手牌
-	repeated GPItem peng_list = 4;	//碰列表
-	repeated GPItem gang_list = 5;	//杠列表
-	optional Operator operator = 6;
+	optional int32 operator = 3;   // 1代表碰牌 2代表摸牌
+	repeated int32 card_list = 4;  //玩家的手牌
+	repeated GPItem peng_list = 5;	//碰列表
+	repeated GPItem gang_list = 6;	//杠列表
+
 }
 
 /*-------------------------------------------------*/
