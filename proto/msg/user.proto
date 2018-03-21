@@ -25,8 +25,9 @@ enum Result {
 //	PENG_GANG
 message GPItem {
 	required int32 value = 1;
-	optional int32 type = 2; //碰没有这个字段
-	optional string from = 3;//来自哪个玩家
+	optional int32 gang_type = 2; //碰没有这个字段
+	optional string from = 3;     //来自哪个玩家
+	optional int32 type = 4;      // 1 碰 2 杠 3 吃
 }
 
 message UserInfo {
@@ -130,10 +131,12 @@ message GameCmdRsp {
 
 /*-------------------游戏命令-----------------------*/
 
-
-
-
 //-------------------推送消息------------------------------//
+message RoomItem {
+	required int32 room_id = 1;
+	required int32 state = 2;          //房间的状态 1 未开始游戏 (2 游戏中 3 某局游戏结束) 客户端只用判断是否为1就好
+	optional float expire_time = 3;   //房间销毁的时间 未开始游戏则显示时间,否则显示游戏中
+}
 
 message PushUserInfo {
 	optional string user_id = 1;
@@ -141,7 +144,13 @@ message PushUserInfo {
 	optional string user_pic = 3;
 	optional string user_ip = 4;
 	optional int32  gold_num = 5;
-	repeated int32  room_list = 6;   //玩家创建的所有房间号列表
+	repeated RoomItem  room_list = 6;   //玩家创建或加入过的房间的显示信息
+}
+
+//刷新房间的状态,用来显示界面用
+message UpdateRoomState {
+	required int32 room_id = 1;
+	required int32 state = 2;
 }
 
 /*-------------------刷新房间信息-------------------*/
@@ -192,9 +201,7 @@ message PushPlayCard {
 	optional int32 user_pos = 2;
 	optional int32 operator = 3;   // 1代表碰牌 2代表摸牌
 	repeated int32 card_list = 4;  //玩家的手牌
-	repeated GPItem peng_list = 5;	//碰列表
-	repeated GPItem gang_list = 6;	//杠列表
-
+	repeated GPItem card_stack = 5;	//碰、杠、吃列表
 }
 
 /*-------------------------------------------------*/
@@ -278,8 +285,7 @@ message PlayerInfo {
 	required bool is_sit = 6;			//是否入座
 	required float gold_num = 7;		//玩家金币的数量
 	required int32 score = 8;           //玩家的积分
-	repeated GPItem	peng_list = 9;      //玩家碰的牌
-	repeated GPItem	gang_list = 10;     //玩家杠的牌
+	repeated GPItem	card_stack = 9;     //碰杠吃列表
 }
 
 message PushAllRoomInfo {

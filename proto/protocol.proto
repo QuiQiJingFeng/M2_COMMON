@@ -72,8 +72,10 @@ message S2C {
 
     optional msg.user.PushAllRoomInfo push_all_room_info = 2013;        //推送房间所有的信息,重新返回房间时用到
 
-    optional msg.user.UpdateResource update_resource = 30001;
 
+    optional msg.user.UpdateResource update_resource = 30001;
+    optional msg.user.UpdateRoomState update_room_state = 30002;
+    
 
     optional msg.user.HandleError handle_error = 90001;  //玩家的错误处理方法
     
