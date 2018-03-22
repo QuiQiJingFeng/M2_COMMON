@@ -105,6 +105,8 @@ message SitDownRsp {
 // GUO     过
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
+// DISTROY_ROOM //解散房间 （DISTROY_ROOM + confirm 参数=>是否同意解散房间）
+// （DISTROY_ROOM + alloc 参数=>申请解散房间）
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -116,12 +118,13 @@ message SitDownRsp {
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
-
+	optional bool   confirm = 3;     //true 即同意解散 false 为不同意解散
+	optional bool   alloc = 4;       //alloc = true 为申请解散房间
 	// -------ddz----------------
-	optional int32 demandPoint = 3;  
-	optional int32 nowType = 4;
-	optional int32 nowValue = 5;
-	repeated int32 cardList = 6;
+	optional int32 demandPoint = 5;  
+	optional int32 nowType = 6;
+	optional int32 nowValue = 7;
+	repeated int32 cardList = 8;
 	// -------ddz_end------------
 }
 
@@ -240,7 +243,7 @@ message NoticeGangCard {
 /*-------------------通知客户端是否 碰/杠/胡 -----------------*/
 // oparator=> PENG/GANG/HU
 message PushPlayerOperatorState {
-	required string operator_state = 1;
+	repeated string operator_list = 1;
 	optional int32 user_pos = 2;
 	optional string user_id = 3;
 }
@@ -256,7 +259,7 @@ message Item {
 }
 
 message NoticeGameOver {
-	required int32 over_type = 1;     // 1 正常结束 2 流局
+	required int32 over_type = 1;     // 1 正常结束 2 流局 3 房间解散会发送一个结算
 	repeated Item players = 2;        //玩家的信息
 	repeated int32 award_list = 3;    //奖码列表
 }
@@ -295,6 +298,18 @@ message PushAllRoomInfo {
 /*-------------------------------------------------*/
 
 
+
+/*-------------------通知其他人有人申请解散房间---------------------------*/
+
+message NoticeOtherDistoryRoom {
+	
+}
+
+//拒绝解散房间
+message NoticeOtherRefuse {
+	required string user_id = 1;
+	optional int32 user_pos = 2;
+}
 
 /*-------------------------------------------------*/
 
