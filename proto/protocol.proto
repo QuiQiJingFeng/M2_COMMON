@@ -14,6 +14,9 @@ message C2S {
     // ===================登录====================
     optional msg.login.LoginReq login = 20;                         // 登录
     optional msg.login.LogoutReq logout = 21;                       // 登出
+    optional msg.login.ReconnectReq reconnect = 22;                 // 重连
+
+    
 
     // ===================房间相关====================
     optional msg.user.CreateRoomReq create_room = 10001;            //创建房间
@@ -24,7 +27,7 @@ message C2S {
 
     //===================ddz相关====================
 
-    //optional msg.user.ReqPointDemand game_cmd = 10005;                 //游戏开始后的命令
+    //optional msg.user.ReqPointDemand game_cmd = 20005;                 //游戏开始后的命令
     
 
 
@@ -41,6 +44,7 @@ message S2C {
     // ===================登录====================
     optional msg.login.LoginRsp login = 20;                         // 登录
     optional msg.login.LogoutRsp logout = 21;                       // 登出
+    optional msg.login.ReconnectRsp reconnect = 22;                 // 重连
 
     // ===================房间相关====================
     optional msg.user.CreateRoomRsp create_room = 10001;
@@ -65,7 +69,18 @@ message S2C {
 
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
     optional msg.user.NoticePlayersDisconnect notice_players_disconnect = 20012;       //通知客户端 有玩家掉线
+
+    optional msg.user.PushAllRoomInfo push_all_room_info = 2013;        //推送房间所有的信息,重新返回房间时用到
+    optional msg.user.NoticeOtherDistoryRoom notice_other_distroy_room = 2014;   //通知其他人有人申请解散房间
+    optional msg.user.NoticeOtherRefuse notice_other_refuse = 2015;              //有玩家拒绝解散房间
+
+
+    optional msg.user.UpdateResource update_resource = 30001;
+    optional msg.user.UpdateRoomState update_room_state = 30002;
+    
+
     optional msg.user.HandleError handle_error = 90001;  //玩家的错误处理方法
+    
 
 
     //====================ddz_S2C=======================

@@ -2,41 +2,46 @@ syntax = "proto2";
 package msg.user;
 
 enum Result {
-	success = 1;
-	fail = 2;
-	already_in_room = 3;      //已经在房间中了
-	not_in_room = 4;   //没有在房间中
-	nosupport_command = 5;  //不支持的命令
-	invailed_user_id = 6;   //当前不该这个user_id出牌
-	no_card = 7;            //没有这张牌
-	cannot_hu = 8;			//不能胡牌
-	cannot_peng = 9;        //不能碰牌
-	cannot_gang = 10;        //不能杠
-	cord_command = 11;       //已经记录该命令,无法立即处理
-	not_exist_room = 12;	 //不存在这个房间
-	sit_already_has = 13;    //座位已经有人了
-	no_bind_room_id = 14;    //玩家没有绑定房间ID
-	call_center_fail = 15;   //通知center服失败
-	invalid_paramater = 16;  //错误的参数
-	round_not_enough = 17;   //圈数不足
+	success = 1;		  //成功
+	paramater_error = 2;  //客户端参数错误
+	server_error = 3;     //服务器错误
+	key_exchange_failed = 4; //密钥交换失败
+	other_player_login = 5;  //其他玩家登陆
+	auth_faild = 6;			//校验失败
+	gold_not_enough = 7;    //金币不足
+	current_in_game = 8;    //当前在游戏当中
+	not_exist_room = 9;     //不存在的房间
+	not_in_room = 10;       //当前不在房间中
+	sit_already_has = 11;   //已经有人坐下
+	round_not_enough = 12;  //圈数不足
+	pos_has_player = 13;    //位置已经有人坐了
+	already_sit = 14;       //当前已经坐下了,不需要发送多次
+	invaild_operator = 15;  //无效的操作
+	no_support_command = 16;//无效的命令
 }
 
-/*-------------------用户信息-----------------------*/
+//	AN_GANG
+//	MING_GANG
+//	PENG_GANG
+message GPItem {
+	required int32 value = 1;
+	optional int32 gang_type = 2; //碰没有这个字段
+	optional int32 from = 3;     //来自哪个玩家
+	optional int32 type = 4;      // 1 碰 2 杠 3 吃
+}
 
 message UserInfo {
-	required string user_id = 1;
-	required string user_name = 2;
-	required string user_pic = 3;
-	required string user_ip = 4;
-	required int32  user_pos = 5;
-	required bool is_sit = 6;
+	required string user_id = 1;		//玩家ID
+	required string user_name = 2;		//玩家名称
+	required string user_pic = 3;		//玩家图片
+	required string user_ip = 4;		//玩家IP
+	required int32  user_pos = 5;		//玩家位置
+	required bool is_sit = 6;			//是否入座
+	required float gold_num = 7;		//玩家金币的数量
+	required int32 score = 8;           //玩家的积分
 }
-/*-------------------------------------------------*/
 
-
-
-/*--------------------创建房间----------------------*/
-message CreateRoomReq {
+message RoomSetting {
 	required int32 game_type = 1; 	 //游戏的类型
 	required int32 round = 2;        //游戏的圈数
 	required int32 pay_type = 3;     //支付类型 房主出资还是平摊
@@ -44,13 +49,17 @@ message CreateRoomReq {
 	required bool is_friend_room = 5; //是否只让好友进入
 	required bool is_open_voice = 6; //是否开启语音聊天
 	required bool is_open_gps = 7;   //是否开启GPS防作弊
-	repeated int32 other_setting = 8; //具体游戏的设置
+	repeated int32 other_setting = 8; //具体游戏的设置	
+}
+
+
+/*--------------------创建房间----------------------*/
+message CreateRoomReq {
+	required RoomSetting room_setting = 1;
 }
 
 message CreateRoomRsp {
 	required Result result = 1;
-	optional int32 room_id = 2;
-	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
 
@@ -62,8 +71,6 @@ message JoinRoomReq {
 
 message JoinRoomRsp {
 	required Result result = 1;
-	optional int32 room_id = 2;
-	repeated UserInfo players = 3;
 }
 /*-------------------------------------------------*/
 
@@ -90,7 +97,6 @@ message SitDownRsp {
 /*-------------------------------------------------*/
 
 
-
 /*-------------------------------------------------*/
 // DEAL_FINISH  发牌完毕
 // PLAY_CARD  出牌
@@ -98,7 +104,9 @@ message SitDownRsp {
 // GANG    杠
 // GUO     过
 // DEMAND 	叫分
-// 
+// BACK_ROOM  //返回房间
+// DISTROY_ROOM //解散房间 （DISTROY_ROOM + confirm 参数=>是否同意解散房间）
+// （DISTROY_ROOM + alloc 参数=>申请解散房间）
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -110,12 +118,13 @@ message SitDownRsp {
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
-
+	optional bool   confirm = 3;     //true 即同意解散 false 为不同意解散
+	optional bool   alloc = 4;       //alloc = true 为申请解散房间
 	// -------ddz----------------
-	optional int32 demandPoint = 3;  
-	optional int32 nowType = 4;
-	optional int32 nowValue = 5;
-	repeated int32 cardList = 6;
+	optional int32 demandPoint = 5;  
+	optional int32 nowType = 6;
+	optional int32 nowValue = 7;
+	repeated int32 cardList = 8;
 	// -------ddz_end------------
 }
 
@@ -125,10 +134,12 @@ message GameCmdRsp {
 
 /*-------------------游戏命令-----------------------*/
 
-
-
-
 //-------------------推送消息------------------------------//
+message RoomItem {
+	required int32 room_id = 1;
+	required int32 state = 2;          //房间的状态 1 未开始游戏 (2 游戏中 3 某局游戏结束) 客户端只用判断是否为1就好
+	optional float expire_time = 3;   //房间销毁的时间 未开始游戏则显示时间,否则显示游戏中
+}
 
 message PushUserInfo {
 	optional string user_id = 1;
@@ -136,21 +147,21 @@ message PushUserInfo {
 	optional string user_pic = 3;
 	optional string user_ip = 4;
 	optional int32  gold_num = 5;
-	repeated int32  room_list = 6;   //玩家创建的所有房间号列表
+	repeated RoomItem  room_list = 6;   //玩家创建或加入过的房间的显示信息
+}
+
+//刷新房间的状态,用来显示界面用
+message UpdateRoomState {
+	required int32 room_id = 1;
+	required int32 state = 2;
 }
 
 /*-------------------刷新房间信息-------------------*/
+
 message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
-	required int32 game_type = 3; 	 //游戏的类型
-	required int32 round = 4;        //游戏的圈数
-	required int32 pay_type = 5;     //支付类型 房主出资还是平摊
-	required int32 seat_num = 6;     //游戏的人数
-	required bool is_friend_room = 7; //是否只让好友进入
-	required bool is_open_voice = 8; //是否开启语音聊天
-	required bool is_open_gps = 9;   //是否开启GPS防作弊
-	repeated int32 other_setting = 10; //具体游戏的设置
+	required RoomSetting room_setting = 3;
 }
 /*-------------------------------------------------*/
 
@@ -168,36 +179,32 @@ message PushSitDown {
 
 /*-------------------发牌-----------------*/
 message DealCard {
-	required int32 zpos = 1;   //庄家的位置
-	optional int32 user_pos = 2;
-	repeated int32 cards = 3;		 //玩家发到手里的牌
+	required int32 zpos = 1;                   //庄家的位置
+	required int32 user_pos = 2;               //玩家的位置
+	repeated int32 cards = 3;		           //玩家发到手里的牌
+	repeated int32 random_nums = 4;            //两个骰子的数字
+	required int32 cur_round = 5;                  //当前局数
 }
 /*-------------------------------------------------*/
 
 
 /*---------------通知其他人有人摸牌-----------------*/
+
 message PushDrawCard {
 	optional string user_id = 1;
 	optional int32 card = 2;	//如果不是本人摸牌,则没有card
-	optional int32 user_pos = 3;
+	optional int32 user_pos = 3;	
 }
 /*-------------------------------------------------*/
 
-
 /*-------------------通知玩家该出牌了-----------------*/
-//	AN_GANG
-//	MING_GANG
-//	PENG_GANG
-message GPItem {
-	required int32 value = 1;
-	optional int32 type = 2; //碰没有这个字段
-}
+
 message PushPlayCard {
 	required string user_id = 1;
 	optional int32 user_pos = 2;
-	repeated int32 card_list = 3;  //玩家的手牌
-	repeated GPItem peng_list = 4;	//碰列表
-	repeated GPItem gang_list = 5;	//杠列表
+	optional int32 operator = 3;   // 1代表碰牌 2代表摸牌
+	repeated int32 card_list = 4;  //玩家的手牌
+	repeated GPItem card_stack = 5;	//碰、杠、吃列表
 }
 
 /*-------------------------------------------------*/
@@ -210,12 +217,11 @@ message NoticePlayCard {
 }
 /*-------------------------------------------------*/
 
-
 /*-------------------通知其他人有人碰牌-----------------*/
 message NoticePengCard {
 	required string user_id = 1;
-	required int32 card = 2;
-	optional int32 user_pos = 3;
+	optional int32 user_pos = 2;
+	optional GPItem item = 3;
 }
 /*-------------------------------------------------*/
 
@@ -228,9 +234,8 @@ enum GangType {
 
 message NoticeGangCard {
 	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
-	required int32 card = 2;
-	required GangType gang_type = 3;  //杠的类型
-	optional int32 user_pos = 4;
+	optional int32 user_pos = 2;
+	optional GPItem item = 3;
 }
 /*-------------------------------------------------*/
 
@@ -238,22 +243,25 @@ message NoticeGangCard {
 /*-------------------通知客户端是否 碰/杠/胡 -----------------*/
 // oparator=> PENG/GANG/HU
 message PushPlayerOperatorState {
-	required string operator_state = 1;
-	optional int32 user_pos = 3;
+	repeated string operator_list = 1;
+	optional int32 user_pos = 2;
+	optional string user_id = 3;
 }
 /*-------------------------------------------------*/
 
 /*-------------------通知客户端 本局结束-----------------*/
 message Item {
 	required string user_id = 1;   //玩家ID
-	required int32  up_score = 2;  //玩家增加或减少的积分
-	repeated int32  card_list = 3; //玩家手里的牌
-	optional int32 user_pos = 4;
+	required int32 user_pos = 2;   //玩家的位置
+	required float  cur_score = 3; //玩家当前局的积分
+	required float  score = 4;     //玩家的总积分
+	repeated int32  card_list = 5; //玩家手里的牌
 }
 
 message NoticeGameOver {
-	required int32 type = 1;     // 1 正常结束 2 流局
-	repeated Item players = 2;   //玩家的信息
+	required int32 over_type = 1;     // 1 正常结束 2 流局 3 房间解散会发送一个结算
+	repeated Item players = 2;        //玩家的信息
+	repeated int32 award_list = 3;    //奖码列表
 }
 
 /*-------------------------------------------------*/
@@ -268,8 +276,40 @@ message NoticePlayersDisconnect {
 
 
 
+/*-----------------重新返回房间的时候推送所有的数据-----------------------*/
+message PlayerInfo {
+	required string user_id = 1;		//玩家ID
+	required string user_name = 2;		//玩家名称
+	required string user_pic = 3;		//玩家图片
+	required string user_ip = 4;		//玩家IP
+	required int32  user_pos = 5;		//玩家位置
+	required bool is_sit = 6;			//是否入座
+	required float gold_num = 7;		//玩家金币的数量
+	required int32 score = 8;           //玩家的积分
+	repeated GPItem	card_stack = 9;     //碰杠吃列表
+}
+
+message PushAllRoomInfo {
+	required RoomSetting room_setting = 1;  //房间的设置
+	repeated int32 card_list = 2;           //玩家的手牌
+	repeated PlayerInfo players = 3;        //当前玩家列表信息
+	optional string operator = 4;           //如果当前是本人操作,则返回,否则不返回
+}
+/*-------------------------------------------------*/
 
 
+
+/*-------------------通知其他人有人申请解散房间---------------------------*/
+
+message NoticeOtherDistoryRoom {
+	
+}
+
+//拒绝解散房间
+message NoticeOtherRefuse {
+	required string user_id = 1;
+	optional int32 user_pos = 2;
+}
 
 /*-------------------------------------------------*/
 
@@ -277,9 +317,16 @@ message NoticePlayersDisconnect {
 /*-------------------玩家错误处理-----------------*/
 
 message HandleError {
+	optional string result = 1; 
 }
 /*-------------------------------------------------*/
 
 
+/*-------------------更新资源-----------------*/
+
+message UpdateResource {
+	optional int32 gold_num = 1; 
+}
+/*-------------------------------------------------*/
 
 
