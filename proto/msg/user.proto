@@ -38,7 +38,8 @@ message UserInfo {
 	required int32  user_pos = 5;		//玩家位置
 	required bool is_sit = 6;			//是否入座
 	required float gold_num = 7;		//玩家金币的数量
-	required int32 score = 8;           //玩家的积分
+	required float score = 8;           //玩家的积分
+	required float cur_score = 9;       //玩家当前局的积分
 }
 
 message RoomSetting {
@@ -103,6 +104,7 @@ message SitDownRsp {
 // PENG    碰
 // GANG    杠
 // GUO     过
+// HU      胡牌
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
 // DISTROY_ROOM //解散房间 （DISTROY_ROOM + confirm 参数=>是否同意解散房间）
@@ -246,6 +248,7 @@ message PushPlayerOperatorState {
 	repeated string operator_list = 1;
 	optional int32 user_pos = 2;
 	optional string user_id = 3;
+	optional int32 card = 4;
 }
 /*-------------------------------------------------*/
 
@@ -268,9 +271,10 @@ message NoticeGameOver {
 
 /*-------------------通知玩家有人掉线-----------------*/
 
-message NoticePlayersDisconnect {
+message NoticePlayerConnectState {
 	required string user_id = 1;
-	optional int32 user_pos = 3;
+	optional int32 user_pos = 2;
+	optional bool is_connect = 3;
 }
 /*-------------------------------------------------*/
 
@@ -298,6 +302,17 @@ message PushAllRoomInfo {
 /*-------------------------------------------------*/
 
 
+/*----------------扣费推送---------------*/
+message GoldItem {
+	optional string user_id = 1;
+	optional int32 user_pos = 2;
+	optional float gold_num = 3;  //最新金币数量
+}
+
+message UpdateCostGold {
+	repeated GoldItem gold_list = 1;
+}
+/*-----------------------------------*/
 
 /*-------------------通知其他人有人申请解散房间---------------------------*/
 
