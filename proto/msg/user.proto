@@ -18,6 +18,7 @@ enum Result {
 	already_sit = 14;       //当前已经坐下了,不需要发送多次
 	invaild_operator = 15;  //无效的操作
 	no_support_command = 16;//无效的命令
+	no_permission_distroy = 17;//没有权限解散房间
 }
 
 //	AN_GANG
@@ -108,7 +109,6 @@ message SitDownRsp {
 // HU      胡牌
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
-// DISTROY_ROOM //解散房间 （DISTROY_ROOM + confirm 参数=>是否同意解散房间）
 // （DISTROY_ROOM + alloc 参数=>申请解散房间）
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
@@ -121,8 +121,6 @@ message SitDownRsp {
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
-	optional bool   confirm = 3;     //true 即同意解散 false 为不同意解散
-	optional bool   alloc = 4;       //alloc = true 为申请解散房间
 	// -------ddz----------------
 	optional int32 demandPoint = 5;  
 	optional int32 nowType = 6;
@@ -315,19 +313,6 @@ message UpdateCostGold {
 }
 /*-----------------------------------*/
 
-/*-------------------通知其他人有人申请解散房间---------------------------*/
-
-message NoticeOtherDistoryRoom {
-	
-}
-
-//拒绝解散房间
-message NoticeOtherRefuse {
-	required string user_id = 1;
-	optional int32 user_pos = 2;
-}
-
-/*-------------------------------------------------*/
 
 
 /*-------------------玩家错误处理-----------------*/
@@ -344,5 +329,45 @@ message UpdateResource {
 	optional int32 gold_num = 1; 
 }
 /*-------------------------------------------------*/
+
+
+/*-----------------------------------*/
+
+//解散房间 分两种 1种是房主解散(可以在游戏未开始的时候解散) 2种是申请解散
+message DistroyRoomReq {
+	required int32  room_id = 1;
+	required int32 type = 2;    //解散类型  1 玩家申请解散  2、房主解散
+}
+
+message DistroyRoomRsp {
+	required string result = 1; 
+}
+
+//通知其他人有人申请解散房间
+message NoticeOtherDistoryRoom {
+	
+}
+
+//是否同意解散房间
+message ConfirmDistroyRoomReq {
+	required bool   confirm = 1;
+}
+
+message ConfirmDistroyRoomRsp {
+	required string result = 1; 
+}
+
+//通知所有人  有人拒绝解散房间
+message NoticeOtherRefuse {
+	required string user_id = 1;
+	required int32  room_id = 2;
+	optional int32 user_pos = 3;
+}
+
+//通知玩家房间已经解散
+message NoticePlayerDistroyRoom{
+	required int32 room_id = 1;
+	required int32 type = 2;    //解散类型 1 玩家申请解散  2、房主解散 3、时间到了解散
+}
 
 
