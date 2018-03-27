@@ -24,6 +24,10 @@ message C2S {
     optional msg.user.LeaveRoomReq leave_room = 10003;             //离开房间
     optional msg.user.SitDownReq sit_down = 10004;                    //入座
     optional msg.user.GameCmdReq game_cmd = 10005;                 //游戏开始后的命令
+    optional msg.user.DistroyRoomReq distroy_room = 10006;         //申请解散房间
+    optional msg.user.ConfirmDistroyRoomReq confirm_distroy_room = 10007; //是否同意解散房间
+
+
 
     //===================ddz相关====================
 
@@ -51,7 +55,9 @@ message S2C {
     optional msg.user.JoinRoomRsp join_room = 10002;
     optional msg.user.LeaveRoomRsp leave_room = 10003;               
     optional msg.user.SitDownRsp sit_down = 10004; 
-    optional msg.user.GameCmdRsp game_cmd = 10005;                  
+    optional msg.user.GameCmdRsp game_cmd = 10005;  
+    optional msg.user.DistroyRoomRsp distroy_room = 10006;         //申请解散房间   
+    optional msg.user.ConfirmDistroyRoomRsp confirm_distroy_room = 10007; //是否同意解散房间             
 
 
     //====================推送消息=======================
@@ -69,11 +75,14 @@ message S2C {
 
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
     optional msg.user.NoticePlayerConnectState notice_player_connect_state = 20012;       //通知客户端 有玩家掉线
-
     optional msg.user.PushAllRoomInfo push_all_room_info = 2013;        //推送房间所有的信息,重新返回房间时用到
-    optional msg.user.NoticeOtherDistoryRoom notice_other_distroy_room = 2014;   //通知其他人有人申请解散房间
-    optional msg.user.NoticeOtherRefuse notice_other_refuse = 2015;              //有玩家拒绝解散房间
-    optional msg.user.UpdateCostGold update_cost_gold = 2016;                    //扣费通知
+    optional msg.user.UpdateCostGold update_cost_gold = 2014;                    //扣费通知
+
+    optional msg.user.NoticeOtherDistoryRoom notice_other_distroy_room = 2015;   //通知其他人有人申请解散房间
+    optional msg.user.NoticeOtherRefuse notice_other_refuse = 2016;              //有玩家拒绝解散房间
+    optional msg.user.NoticePlayerDistroyRoom notice_player_distroy_room = 2017; //通知玩家房间已经被解散
+
+    
 
 
     optional msg.user.UpdateResource update_resource = 30001;
