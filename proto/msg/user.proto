@@ -139,6 +139,8 @@ message RoomItem {
 	required int32 state = 2;          //房间的状态 1 未开始游戏 (2 游戏中 3 某局游戏结束) 客户端只用判断是否为1就好
 	optional float expire_time = 3;    //房间销毁的时间 未开始游戏则显示时间,否则显示游戏中
 	optional bool  is_sit = 4;         //如果state==1 但是玩家处于坐下的状态,则需要显示返回房间的按钮
+	optional int32 game_type = 5;      //游戏的类型
+	optional string owner_id = 6;       //房主
 }
 
 /*--------------------请求最新的房间列表信息----------*/
@@ -177,6 +179,7 @@ message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
 	required RoomSetting room_setting = 3;
+	required int32 state = 4;
 }
 /*-------------------------------------------------*/
 
