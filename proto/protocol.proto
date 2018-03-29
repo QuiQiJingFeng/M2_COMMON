@@ -84,6 +84,9 @@ message S2C {
     optional msg.user.NoticeOtherRefuse notice_other_refuse = 2016;              //有玩家拒绝解散房间
     optional msg.user.NoticePlayerDistroyRoom notice_player_distroy_room = 2017; //通知玩家房间已经被解散
 
+
+    optional msg.user.RefreshPlayerCurScore refresh_player_cur_score = 2018;     //刷新玩家当局的积分
+    
     
 
 

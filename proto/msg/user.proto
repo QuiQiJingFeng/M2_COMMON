@@ -328,6 +328,20 @@ message UpdateCostGold {
 /*-----------------------------------*/
 
 
+/*-------------------刷新玩家积分-----------------*/
+
+message ScoreItem {
+	optional string user_id = 1;
+	optional int32 user_pos = 2;
+	optional float cur_score = 3; 
+}
+
+message RefreshPlayerCurScore {
+	repeated ScoreItem cur_score_list = 1; 
+}
+/*-------------------------------------------------*/
+
+
 
 /*-------------------玩家错误处理-----------------*/
 
