@@ -336,7 +336,7 @@ message UpdateCostGold {
 message ScoreItem {
 	optional string user_id = 1;
 	optional int32 user_pos = 2;
-	optional float cur_score = 3; 
+	optional float delt_score = 3; 
 }
 
 message RefreshPlayerCurScore {
