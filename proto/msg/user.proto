@@ -20,6 +20,7 @@ enum Result {
 	no_support_command = 16;//无效的命令
 	no_permission_distroy = 17;//没有权限解散房间
 	current_in_room = 18;     //当前在房间当中
+	no_position = 19;         //没有位置了
 }
 
 //	AN_GANG
