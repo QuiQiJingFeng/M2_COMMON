@@ -102,6 +102,7 @@ message SitDownRsp {
 
 
 /*-------------------------------------------------*/
+<<<<<<< Updated upstream
 // DEAL_FINISH  发牌完毕
 // PLAY_CARD  出牌
 // PENG    碰
@@ -110,6 +111,17 @@ message SitDownRsp {
 // HU      胡牌
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
+=======
+// 	DEAL_FINISH  发牌完毕
+// 	PLAY_CARD  出牌
+// 	PENG    碰
+// 	GANG    杠
+// 	GUO     过
+// 	HU      胡牌
+// 	DEMAND 	叫分
+// 	BACK_ROOM  //返回房间
+// （DISTROY_ROOM + alloc 参数=>申请解散房间）
+>>>>>>> Stashed changes
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -121,11 +133,13 @@ message SitDownRsp {
 message GameCmdReq {
 	required string command = 1;
 	optional int32  card = 2;
+
 	// -------ddz----------------
 	optional int32 demandPoint = 5;  
 	optional int32 nowType = 6;
 	optional int32 nowValue = 7;
 	repeated int32 cardList = 8;
+	repeated int32 cardNums = 9;
 	// -------ddz_end------------
 }
 
@@ -282,9 +296,24 @@ message NoticeGameOver {
 	required int32 over_type = 1;     // 1 正常结束 2 流局 3 房间解散会发送一个结算
 	repeated Item players = 2;        //玩家的信息
 	repeated int32 award_list = 3;    //奖码列表
+<<<<<<< Updated upstream
 	optional int32  winner_type = 4;  //胜利的类型 自摸 1 抢杠 2
 	optional bool last_round = 5;     //是否最后一局
 	optional int32 winner_pos = 6;    //自摸的玩家位置
+=======
+
+	// 是否所有局数已经打完， （继续游戏的按钮）
+	round == MaxRound
+
+
+	// （总倍数） 	
+	// 春天	
+
+
+	// 当前的金币数
+
+
+>>>>>>> Stashed changes
 }
 
 /*-------------------------------------------------*/
