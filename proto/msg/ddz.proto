@@ -64,12 +64,10 @@ message NoticeDDZGameOver {
 
 	required int32 	over_type = 1;     	// 1 正常结束 2 流局 3 房间解散会发送一个结算
 	repeated Item 	players = 2;       	// 玩家的信息 * 3
-	
-	required bool  	bIfSpring = 2;		// 是否春天
-	required int32 	iTime = 3;			// 房间倍数
-	required int32 	iBoomNums = 4;		// 炸弹的个数
-
-	repeated int32 	iLastCard = 5;		// 剩下的牌，最多传两家的， 不用传3家 
+	required bool  	bIfSpring = 3;		// 是否春天
+	required int32 	iTime = 4;			// 房间倍数
+	required int32 	iBoomNums = 5;		// 炸弹的个数
+	repeated int32 	iLastCard = 6;		// 剩下的牌，最多传两家的， 不用传3家 
 }
 
 
