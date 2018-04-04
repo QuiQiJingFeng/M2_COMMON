@@ -222,7 +222,7 @@ message PushDrawCard {
 message PushPlayCard {
 	required string user_id = 1;
 	optional int32 user_pos = 2;
-	optional int32 operator = 3;   // 1代表碰牌 2代表摸牌
+	optional int32 operator = 3;   // 2代表碰牌之后的出牌 1代表摸牌之后的出牌
 	repeated int32 card_list = 4;  //玩家的手牌
 	repeated GPItem card_stack = 5;	//碰、杠、吃列表
 }
