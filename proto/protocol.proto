@@ -27,6 +27,8 @@ message C2S {
     optional msg.user.DistroyRoomReq distroy_room = 10006;         //申请解散房间
     optional msg.user.ConfirmDistroyRoomReq confirm_distroy_room = 10007; //是否同意解散房间
 
+    optional msg.user.GetMyRoomListReq get_my_room_list = 10008;   //获取房间列表信息
+
 
 
     //===================ddz相关====================
@@ -58,7 +60,7 @@ message S2C {
     optional msg.user.GameCmdRsp game_cmd = 10005;  
     optional msg.user.DistroyRoomRsp distroy_room = 10006;         //申请解散房间   
     optional msg.user.ConfirmDistroyRoomRsp confirm_distroy_room = 10007; //是否同意解散房间             
-
+    optional msg.user.GetMyRoomListRsp get_my_room_list = 10008;   //获取房间的列表信息
 
     //====================推送消息=======================
     
@@ -82,6 +84,9 @@ message S2C {
     optional msg.user.NoticeOtherRefuse notice_other_refuse = 2016;              //有玩家拒绝解散房间
     optional msg.user.NoticePlayerDistroyRoom notice_player_distroy_room = 2017; //通知玩家房间已经被解散
 
+
+    optional msg.user.RefreshPlayerCurScore refresh_player_cur_score = 2018;     //刷新玩家当局的积分
+    
     
 
 

@@ -23,7 +23,7 @@ message LoginReq {
 
 message LoginRsp {
     required Result result = 1;                //登陆的结果
-    optional string reconnect_token = 2;            //重连的token 如果是登陆才会返回
+    optional string reconnect_token = 2;            //重连的token
 }
 
 message LogoutReq {
@@ -39,6 +39,7 @@ message ReconnectReq {
 
 message ReconnectRsp {
     required Result result = 1;
+    required string reconnect_token = 2;            //重连成功需要更新重连的token
 }
 
 

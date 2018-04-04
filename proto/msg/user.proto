@@ -19,13 +19,15 @@ enum Result {
 	invaild_operator = 15;  //无效的操作
 	no_support_command = 16;//无效的命令
 	no_permission_distroy = 17;//没有权限解散房间
+	current_in_room = 18;     //当前在房间当中
+	no_position = 19;         //没有位置了
 }
 
 //	AN_GANG
 //	MING_GANG
 //	PENG_GANG
 message GPItem {
-	required int32 value = 1;
+	optional int32 value = 1;
 	optional int32 gang_type = 2; //碰没有这个字段
 	optional int32 from = 3;     //来自哪个玩家
 	optional int32 type = 4;      // 1 碰 2 杠 3 吃
@@ -54,7 +56,6 @@ message RoomSetting {
 	repeated int32 other_setting = 8; //具体游戏的设置	
 	required int32 cur_round = 9;     //当前游戏的局数
 }
-
 
 /*--------------------创建房间----------------------*/
 message CreateRoomReq {
@@ -109,7 +110,6 @@ message SitDownRsp {
 // HU      胡牌
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
-// （DISTROY_ROOM + alloc 参数=>申请解散房间）
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -135,12 +135,28 @@ message GameCmdRsp {
 
 /*-------------------游戏命令-----------------------*/
 
-//-------------------推送消息------------------------------//
 message RoomItem {
 	required int32 room_id = 1;
 	required int32 state = 2;          //房间的状态 1 未开始游戏 (2 游戏中 3 某局游戏结束) 客户端只用判断是否为1就好
-	optional float expire_time = 3;   //房间销毁的时间 未开始游戏则显示时间,否则显示游戏中
+	optional float expire_time = 3;    //房间销毁的时间 未开始游戏则显示时间,否则显示游戏中
+	optional bool  is_sit = 4;         //如果state==1 但是玩家处于坐下的状态,则需要显示返回房间的按钮
+	optional int32 game_type = 5;      //游戏的类型
+	optional string owner_id = 6;       //房主
 }
+
+/*--------------------请求最新的房间列表信息----------*/
+message GetMyRoomListReq {
+	
+}
+
+message GetMyRoomListRsp {
+	required Result result = 1;
+	repeated RoomItem  room_list = 2;   //玩家创建或加入过的房间的显示信息
+	optional int32  room_id = 3;        //如果玩家在游戏当中，则返回这个room_id
+}
+/*------------------------------------------------*/
+//-------------------推送消息------------------------------//
+
 
 message PushUserInfo {
 	optional string user_id = 1;
@@ -149,6 +165,7 @@ message PushUserInfo {
 	optional string user_ip = 4;
 	optional int32  gold_num = 5;
 	repeated RoomItem  room_list = 6;   //玩家创建或加入过的房间的显示信息
+	optional int32  room_id = 7;        //如果玩家在游戏当中，则返回这个room_id
 }
 
 //刷新房间的状态,用来显示界面用
@@ -163,6 +180,7 @@ message RefreshRoomInfo {
 	required int32 room_id = 1;
 	repeated UserInfo players = 2;
 	required RoomSetting room_setting = 3;
+	required int32 state = 4;
 }
 /*-------------------------------------------------*/
 
@@ -264,6 +282,9 @@ message NoticeGameOver {
 	required int32 over_type = 1;     // 1 正常结束 2 流局 3 房间解散会发送一个结算
 	repeated Item players = 2;        //玩家的信息
 	repeated int32 award_list = 3;    //奖码列表
+	optional int32  winner_type = 4;  //胜利的类型 自摸 1 抢杠 2
+	optional bool last_round = 5;     //是否最后一局
+	optional int32 winner_pos = 6;    //自摸的玩家位置
 }
 
 /*-------------------------------------------------*/
@@ -312,6 +333,20 @@ message UpdateCostGold {
 	repeated GoldItem gold_list = 1;
 }
 /*-----------------------------------*/
+
+
+/*-------------------刷新玩家积分-----------------*/
+
+message ScoreItem {
+	optional string user_id = 1;
+	optional int32 user_pos = 2;
+	optional float delt_score = 3; 
+}
+
+message RefreshPlayerCurScore {
+	repeated ScoreItem cur_score_list = 1; 
+}
+/*-------------------------------------------------*/
 
 
 
