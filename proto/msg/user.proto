@@ -43,6 +43,7 @@ message UserInfo {
 	required float gold_num = 7;		//玩家金币的数量
 	required float score = 8;           //玩家的积分
 	required float cur_score = 9;       //玩家当前局的积分
+	required bool disconnect = 10;
 }
 
 message RoomSetting {
@@ -312,6 +313,7 @@ message PlayerInfo {
 	required float gold_num = 7;		//玩家金币的数量
 	required int32 score = 8;           //玩家的积分
 	repeated GPItem	card_stack = 9;     //碰杠吃列表
+	required bool disconnect = 10;      //是否断开连接
 }
 
 message PushAllRoomInfo {
