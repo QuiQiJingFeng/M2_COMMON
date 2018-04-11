@@ -34,7 +34,7 @@ message GPItem {
 }
 
 message UserInfo {
-	required string user_id = 1;		//玩家ID
+	required int32 user_id = 1;		//玩家ID
 	required string user_name = 2;		//玩家名称
 	required string user_pic = 3;		//玩家图片
 	required string user_ip = 4;		//玩家IP
@@ -160,7 +160,7 @@ message GetMyRoomListRsp {
 
 
 message PushUserInfo {
-	optional string user_id = 1;
+	optional int32 user_id = 1;
 	optional string user_name = 2;
 	optional string user_pic = 3;
 	optional string user_ip = 4;
@@ -188,7 +188,7 @@ message RefreshRoomInfo {
 
 /*-------------------推送玩家入座信息-------------------*/
 message SitItem {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	required int32 user_pos = 2;
 }
 message PushSitDown {
@@ -211,7 +211,7 @@ message DealCard {
 /*---------------通知其他人有人摸牌-----------------*/
 
 message PushDrawCard {
-	optional string user_id = 1;
+	optional int32 user_id = 1;
 	optional int32 card = 2;	//如果不是本人摸牌,则没有card
 	optional int32 user_pos = 3;	
 }
@@ -220,7 +220,7 @@ message PushDrawCard {
 /*-------------------通知玩家该出牌了-----------------*/
 
 message PushPlayCard {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	optional int32 user_pos = 2;
 	optional int32 operator = 3;   // 2代表碰牌之后的出牌 1代表摸牌之后的出牌
 	repeated int32 card_list = 4;  //玩家的手牌
@@ -231,7 +231,7 @@ message PushPlayCard {
 
 /*-------------------通知其他人有人出牌-----------------*/
 message NoticePlayCard {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	required int32 card = 2;
 	optional int32 user_pos = 3;
 }
@@ -239,7 +239,7 @@ message NoticePlayCard {
 
 /*-------------------通知其他人有人碰牌-----------------*/
 message NoticePengCard {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	optional int32 user_pos = 2;
 	optional GPItem item = 3;
 }
@@ -253,7 +253,7 @@ enum GangType {
 }
 
 message NoticeGangCard {
-	required string user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	required int32 user_id = 1;	  //如果有user_id 的话 不是本人出牌
 	optional int32 user_pos = 2;
 	optional GPItem item = 3;
 }
@@ -265,14 +265,14 @@ message NoticeGangCard {
 message PushPlayerOperatorState {
 	repeated string operator_list = 1;
 	optional int32 user_pos = 2;
-	optional string user_id = 3;
+	optional int32 user_id = 3;
 	optional int32 card = 4;
 }
 /*-------------------------------------------------*/
 
 /*-------------------通知客户端 本局结束-----------------*/
 message Item {
-	required string user_id = 1;   //玩家ID
+	required int32 user_id = 1;   //玩家ID
 	required int32 user_pos = 2;   //玩家的位置
 	required float  cur_score = 3; //玩家当前局的积分
 	required float  score = 4;     //玩家的总积分
@@ -293,7 +293,7 @@ message NoticeGameOver {
 /*-------------------通知玩家有人掉线-----------------*/
 
 message NoticePlayerConnectState {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	optional int32 user_pos = 2;
 	optional bool is_connect = 3;
 }
@@ -303,7 +303,7 @@ message NoticePlayerConnectState {
 
 /*-----------------重新返回房间的时候推送所有的数据-----------------------*/
 message PlayerInfo {
-	required string user_id = 1;		//玩家ID
+	required int32 user_id = 1;		//玩家ID
 	required string user_name = 2;		//玩家名称
 	required string user_pic = 3;		//玩家图片
 	required string user_ip = 4;		//玩家IP
@@ -325,7 +325,7 @@ message PushAllRoomInfo {
 
 /*----------------扣费推送---------------*/
 message GoldItem {
-	optional string user_id = 1;
+	optional int32 user_id = 1;
 	optional int32 user_pos = 2;
 	optional float gold_num = 3;  //最新金币数量
 }
@@ -339,7 +339,7 @@ message UpdateCostGold {
 /*-------------------刷新玩家积分-----------------*/
 
 message ScoreItem {
-	optional string user_id = 1;
+	optional int32 user_id = 1;
 	optional int32 user_pos = 2;
 	optional float delt_score = 3; 
 }
@@ -395,7 +395,7 @@ message ConfirmDistroyRoomRsp {
 
 //通知所有人  有人拒绝解散房间
 message NoticeOtherRefuse {
-	required string user_id = 1;
+	required int32 user_id = 1;
 	required int32  room_id = 2;
 	optional int32 user_pos = 3;
 }

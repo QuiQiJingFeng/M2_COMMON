@@ -13,8 +13,6 @@ message C2S {
 
     // ===================登录====================
     optional msg.login.LoginReq login = 20;                         // 登录
-    optional msg.login.LogoutReq logout = 21;                       // 登出
-    optional msg.login.ReconnectReq reconnect = 22;                 // 重连
 
     
 
@@ -50,8 +48,6 @@ message S2C {
 
     // ===================登录====================
     optional msg.login.LoginRsp login = 20;                         // 登录
-    optional msg.login.LogoutRsp logout = 21;                       // 登出
-    optional msg.login.ReconnectRsp reconnect = 22;                 // 重连
 
     // ===================房间相关====================
     optional msg.user.CreateRoomRsp create_room = 10001;
