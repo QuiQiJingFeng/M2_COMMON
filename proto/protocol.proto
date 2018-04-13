@@ -86,7 +86,7 @@ message S2C {
     
     optional msg.user.NoticeTotalSattle notice_total_sattle = 2019;              // 刷新总结算
     
-    optional msg.user.NoticeCPGHCard notice_cpgh_card = 2020;                    // 通知有人吃碰杠胡
+    optional msg.user.NoticeSpecailEvent notice_special_event = 2020;                    // 通知有人吃碰杠胡
     
     
 

@@ -258,7 +258,7 @@ message NoticeGangCard {
 	optional GPItem item = 3;
 }
 
-message NoticeCPGHCard {
+message NoticeSpecailEvent {
 	required int32 user_id = 1;	  //如果有user_id 的话 不是本人出牌
 	optional int32 user_pos = 2;
 	optional GPItem item = 3;
