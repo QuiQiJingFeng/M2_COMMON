@@ -70,7 +70,7 @@ message S2C {
     optional msg.user.NoticePlayCard notice_play_card = 20007;          //通知其他人有人出牌
     optional msg.user.NoticePengCard notice_peng_card = 20008;          //通知其他人有人碰牌
     optional msg.user.NoticeGangCard notice_gang_card = 20009;          //通知其他人有人杠牌
-    optional msg.user.PushPlayerOperatorState push_player_operator_state = 20010;//通知客户端当前 碰/杠 状态
+    optional msg.user.PushPlayerOperatorState push_player_operator_state = 20010;//通知客户端当前 碰/杠/胡 状态
 
     optional msg.user.NoticeGameOver notice_game_over = 20011;       //通知客户端 本局结束
     optional msg.user.NoticePlayerConnectState notice_player_connect_state = 20012;       //通知客户端 有玩家掉线
@@ -83,6 +83,10 @@ message S2C {
 
 
     optional msg.user.RefreshPlayerCurScore refresh_player_cur_score = 2018;     //刷新玩家当局的积分
+    
+    optional msg.user.NoticeTotalSattle notice_total_sattle = 2019;              // 刷新总结算
+    
+    optional msg.user.NoticeCPGHCard notice_cpgh_card = 2020;                    // 通知有人吃碰杠胡
     
     
 

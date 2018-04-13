@@ -28,9 +28,8 @@ enum Result {
 //	PENG_GANG
 message GPItem {
 	optional int32 value = 1;
-	optional int32 gang_type = 2; //碰没有这个字段
-	optional int32 from = 3;     //来自哪个玩家
-	optional int32 type = 4;      // 1 碰 2 杠 3 吃
+	optional int32 from = 2;     //来自哪个玩家
+	optional int32 type = 3;      //<1 吃 2 碰 3 碰杠 4明杠 5 暗杠 6 胡>
 }
 
 message UserInfo {
@@ -258,6 +257,12 @@ message NoticeGangCard {
 	optional int32 user_pos = 2;
 	optional GPItem item = 3;
 }
+
+message NoticeCPGCard {
+	required int32 user_id = 1;	  //如果有user_id 的话 不是本人出牌
+	optional int32 user_pos = 2;
+	optional GPItem item = 3;
+}
 /*-------------------------------------------------*/
 
 
@@ -405,7 +410,21 @@ message NoticeOtherRefuse {
 //通知玩家房间已经解散
 message NoticePlayerDistroyRoom{
 	required int32 room_id = 1;
-	required int32 type = 2;    //解散类型 1 玩家申请解散  2、房主解散 3、时间到了解散
+	required int32 type = 2;    //解散类型 1 玩家申请解散  2、房主解散 3、牌局打完解散 4 时间到了解散
+}
+
+message SattleItem{
+	optional int32 user_id = 1;
+	optional int32 user_pos = 2;
+	optional int32 hu_num = 3;
+	optional int32 ming_gang_num = 4;
+	optional int32 an_gang_num = 5;
+	optional int32 reward_num = 6;
+}
+//总结算
+message NoticeTotalSattle {
+	required int32 room_id = 1;
+	repeated SattleItem sattle_list = 2;
 }
 
 
