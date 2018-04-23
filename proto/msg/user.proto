@@ -321,6 +321,10 @@ message PlayerInfo {
 	required bool disconnect = 10;      //是否断开连接
 }
 
+message PutCard {
+	optional int32 cards = 1;	
+}
+
 message PushAllRoomInfo {
 	required RoomSetting room_setting = 1;  //房间的设置
 	repeated int32 card_list = 2;           //玩家的手牌
@@ -329,6 +333,7 @@ message PushAllRoomInfo {
 	optional int32 cur_play_pos = 5;        // 当前的出牌人
 	optional int32 zpos = 6;
 	optional int32 cur_round = 7;     //当前游戏的局数
+	repeated PutCard put_cards = 8;  //当前已经出的牌 数组的下标为用户的pos
 }
 /*-------------------------------------------------*/
 
