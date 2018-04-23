@@ -43,6 +43,7 @@ message UserInfo {
 	required float score = 8;           //玩家的积分
 	required float cur_score = 9;       //玩家当前局的积分
 	required bool disconnect = 10;
+	repeated GPItem	card_stack = 11;     //碰杠吃列表
 }
 
 message RoomSetting {
@@ -305,35 +306,21 @@ message NoticePlayerConnectState {
 }
 /*-------------------------------------------------*/
 
-
-
 /*-----------------重新返回房间的时候推送所有的数据-----------------------*/
-message PlayerInfo {
-	required int32 user_id = 1;		//玩家ID
-	required string user_name = 2;		//玩家名称
-	required string user_pic = 3;		//玩家图片
-	required string user_ip = 4;		//玩家IP
-	required int32  user_pos = 5;		//玩家位置
-	required bool is_sit = 6;			//是否入座
-	required float gold_num = 7;		//玩家金币的数量
-	required int32 score = 8;           //玩家的积分
-	repeated GPItem	card_stack = 9;     //碰杠吃列表
-	required bool disconnect = 10;      //是否断开连接
-}
 
 message PutCard {
-	optional int32 cards = 1;	
+	optional int32 user_pos = 1;
+	optional int32 cards = 2;	
 }
 
 message PushAllRoomInfo {
-	required RoomSetting room_setting = 1;  //房间的设置
+	required RefreshRoomInfo refresh_room_info = 1;
 	repeated int32 card_list = 2;           //玩家的手牌
-	repeated PlayerInfo players = 3;        //当前玩家列表信息
-	optional string operator = 4;           //如果当前是本人操作,则返回,否则不返回
-	optional int32 cur_play_pos = 5;        // 当前的出牌人
-	optional int32 zpos = 6;
-	optional int32 cur_round = 7;     //当前游戏的局数
-	repeated PutCard put_cards = 8;  //当前已经出的牌 数组的下标为用户的pos
+	optional string operator = 3;           //如果当前是本人操作,则返回,否则不返回
+	optional int32 cur_play_pos = 4;        // 当前的出牌人
+	optional int32 zpos = 5;
+	repeated PutCard put_cards = 6;
+
 }
 /*-------------------------------------------------*/
 
