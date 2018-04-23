@@ -54,7 +54,6 @@ message RoomSetting {
 	required bool is_open_voice = 6; //是否开启语音聊天
 	required bool is_open_gps = 7;   //是否开启GPS防作弊
 	repeated int32 other_setting = 8; //具体游戏的设置	
-	required int32 cur_round = 9;     //当前游戏的局数
 }
 
 /*--------------------创建房间----------------------*/
@@ -182,6 +181,7 @@ message RefreshRoomInfo {
 	repeated UserInfo players = 2;
 	required RoomSetting room_setting = 3;
 	required int32 state = 4;
+	required int32 cur_round = 5;     //当前游戏的局数
 }
 /*-------------------------------------------------*/
 
@@ -328,6 +328,7 @@ message PushAllRoomInfo {
 	optional string operator = 4;           //如果当前是本人操作,则返回,否则不返回
 	optional int32 cur_play_pos = 5;        // 当前的出牌人
 	optional int32 zpos = 6;
+	optional int32 cur_round = 7;     //当前游戏的局数
 }
 /*-------------------------------------------------*/
 
