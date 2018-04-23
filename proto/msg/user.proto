@@ -313,14 +313,20 @@ message PutCard {
 	optional int32 cards = 2;	
 }
 
+message HandleNum {
+	optional int32 user_pos = 1;
+	optional int32 handle_num = 2;
+}
+
 message PushAllRoomInfo {
 	required RefreshRoomInfo refresh_room_info = 1;
 	repeated int32 card_list = 2;           //玩家的手牌
 	optional string operator = 3;           //如果当前是本人操作,则返回,否则不返回
 	optional int32 cur_play_pos = 4;        // 当前的出牌人
-	optional int32 zpos = 5;
-	repeated PutCard put_cards = 6;
-
+	optional int32 zpos = 5;				// 庄家位置
+	repeated PutCard put_cards = 6;         // 玩家出的牌
+	optional int32 reduce_num = 7;          //剩余牌数
+	repeated HandleNum handle_nums = 8;   //玩家手牌的个数
 }
 /*-------------------------------------------------*/
 
