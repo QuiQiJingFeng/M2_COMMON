@@ -327,6 +327,7 @@ message PushAllRoomInfo {
 	repeated PlayerInfo players = 3;        //当前玩家列表信息
 	optional string operator = 4;           //如果当前是本人操作,则返回,否则不返回
 	optional int32 cur_play_pos = 5;        // 当前的出牌人
+	optional int32 zpos = 6;
 }
 /*-------------------------------------------------*/
 
