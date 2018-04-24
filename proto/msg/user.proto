@@ -310,7 +310,7 @@ message NoticePlayerConnectState {
 
 message PutCard {
 	optional int32 user_pos = 1;
-	optional int32 cards = 2;	
+	repeated int32 cards = 2;	
 }
 
 message HandleNum {
