@@ -327,6 +327,7 @@ message PushAllRoomInfo {
 	repeated PutCard put_cards = 6;         // 玩家出的牌
 	optional int32 reduce_num = 7;          //剩余牌数
 	repeated HandleNum handle_nums = 8;   //玩家手牌的个数
+	optional int32 put_card = 9;            //牌桌上最后出的一张牌
 }
 /*-------------------------------------------------*/
 
