@@ -301,7 +301,7 @@ message Item {
 message NoticeGameOver {
 	required int32 over_type = 1;     // 1 正常结束 2 流局 3 房间解散会发送一个结算
 	repeated Item players = 2;        //玩家的信息
-	optional int32 award_list = 3;    //奖码列表
+	repeated int32 award_list = 3;    //奖码列表
 	optional int32  winner_type = 4;  //胜利的类型 自摸 1 抢杠 2
 	optional bool last_round = 5;     //是否最后一局
 	optional int32 winner_pos = 6;    //自摸的玩家位置
