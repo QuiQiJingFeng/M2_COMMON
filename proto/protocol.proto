@@ -102,10 +102,10 @@ message S2C {
     //====================ddz_S2C=======================
     optional msg.ddz.ServerSendCard ServerSendCard = 20013;             // ddz 通知玩家出牌
     optional msg.ddz.NoticePointDemand NoticePointDemand = 20014;       // ddz 消息-玩家叫分推送
-    optional msg.ddz.NoticeMainPaleyer NoticeMainPaleyer = 20015;       // ddz 消息-地主产生
-    optional msg.ddz.NoticeSendCard NoticeSendCard = 20016;             // ddz 消息-玩家出牌推送
-    optional msg.ddz.ServerPointDemand ServerPointDemand = 20017;       // ddz 通知玩家叫分
-    optional msg.ddz.NoticeDDZGameOver NoticeDDZGameOver = 20018;       // ddz 通知玩家叫分
+    optional msg.ddz.NoticeMainPlayer NoticeMainPlayer = 20015;        // ddz 消息-地主产生
+    optional msg.ddz.NoticeSendCard NoticeSendCard = 20017;             // ddz 消息-玩家出牌推送
+    optional msg.ddz.ServerPointDemand ServerPointDemand = 20018;       // ddz 通知玩家叫分
+    optional msg.ddz.NoticeDDZGameOver NoticeDDZGameOver = 20019;       // ddz 通知玩家叫分
 
     //====================ddz_S2C=======================
 

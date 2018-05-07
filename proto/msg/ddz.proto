@@ -21,10 +21,11 @@ message ReqSendCard {
 
 /*-------------------S2C(服务器发给前端,server消息)-----------------*/
 message ServerPointDemand {
-
-	required int32 	userExtra = 1;	// 当前轮到谁叫分(座位号)
+	required int32 	userExtra = 1;		// 当前轮到谁叫分(座位号)
 	required int32  userNowDemand = 2; 	// 当前最高分，1,2,3, 分是否可以可以点击 (欢乐斗地主忽略这个值)
+	repeated int32	userPoint = 3;		// 三家现在分别的叫分, -1是未叫分, 0不叫, 1-3为叫分
 }
+
 
 // 当前出牌消息(出牌同步自己的牌, 并且同步别人的排数)
 message ServerSendCard {
@@ -38,13 +39,12 @@ message ServerSendCard {
 
 // 斗地主叫分notice
 message NoticePointDemand {
-
-	required int32 userExtra = 1;	// 当前轮到谁叫分(座位号)
+	required int32 	userExtra = 1;		// 当前轮到谁叫分(座位号)
 	required int32  userDemand = 2; 	// 当前玩家叫分
 }
 
 
-message NoticeMainPaleyer {
+message NoticeMainPlayer {
 
 	required int32 	userExtra = 1;		//  庄家的座位号
 	repeated int32  baseCard = 2; 		// 	底牌
