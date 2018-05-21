@@ -346,7 +346,7 @@ message PushAllRoomInfo {
 	//新增字段 将操作从字符串改为数组,红中麻将仍沿用之前的字段
 	repeated string operators = 12;           //如果当前是本人操作,则返回,否则不返回
 	repeated string cur_play_operators = 13;  // 当前出牌人的操作
-
+	optional int32 card = 14;                 // 如果有card则说明是摸牌出牌,否则是碰牌出牌
 }
 /*-------------------------------------------------*/
 
