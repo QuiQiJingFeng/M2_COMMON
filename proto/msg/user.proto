@@ -110,6 +110,7 @@ message SitDownRsp {
 // HU      胡牌
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
+// TING_CARD    //听牌
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -288,6 +289,12 @@ message PushPlayerOperatorState {
 	optional int32 card = 4;
 }
 /*-------------------------------------------------*/
+
+/*-------------通知所有人 有人听牌 如果是暗听card为99----*/
+message NoticeTingCard {
+	optional int32 user_pos = 1;
+	optional int32 card = 2;
+}
 
 /*-------------------通知客户端 本局结束-----------------*/
 message Item {
