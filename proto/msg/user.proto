@@ -423,7 +423,7 @@ message DistroyRoomRsp {
 //通知其他人有人申请解散房间
 message NoticeOtherDistoryRoom {
 	optional double distroy_time = 1;  //解散的结束时间
-	repeated string confirm_map = 2;  //确定解散的所有人
+	repeated int32 confirm_map = 2;  //确定解散的所有人
 }
 
 //是否同意解散房间
