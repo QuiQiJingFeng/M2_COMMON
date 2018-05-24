@@ -43,7 +43,6 @@ message UserInfo {
 	required float score = 8;           //玩家的积分
 	required float cur_score = 9;       //玩家当前局的积分
 	required bool disconnect = 10;
-	repeated GPItem	card_stack = 11;     //碰杠吃列表
 }
 
 message RoomSetting {
@@ -354,6 +353,8 @@ message PushAllRoomInfo {
 	repeated string operators = 12;           //如果当前是本人操作,则返回,否则不返回
 	repeated string cur_play_operators = 13;  // 当前出牌人的操作
 	optional int32 card = 14;                 // 如果有card则说明是摸牌出牌,否则是碰牌出牌
+
+	repeated GPItem	card_stack = 15;          //碰杠吃列表
 }
 /*-------------------------------------------------*/
 
