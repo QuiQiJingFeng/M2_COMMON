@@ -336,6 +336,11 @@ message HandleNum {
 	optional int32 handle_num = 2;
 }
 
+message ItemStack {
+	repeated GPItem	item = 1;          //碰杠吃列表
+	optional int32 user_pos = 2;
+}
+
 message PushAllRoomInfo {
 	required RefreshRoomInfo refresh_room_info = 1;
 	repeated int32 card_list = 2;           //玩家的手牌
@@ -354,7 +359,7 @@ message PushAllRoomInfo {
 	repeated string cur_play_operators = 13;  // 当前出牌人的操作
 	optional int32 card = 14;                 // 如果有card则说明是摸牌出牌,否则是碰牌出牌
 
-	repeated GPItem	card_stack = 15;          //碰杠吃列表
+	repeated ItemStack card_stack = 15;          //碰杠吃列表
 }
 /*-------------------------------------------------*/
 
