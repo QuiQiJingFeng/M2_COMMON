@@ -456,6 +456,7 @@ message SattleItem{
 	optional int32 ming_gang_num = 4;
 	optional int32 an_gang_num = 5;
 	optional int32 reward_num = 6;
+	optional int32 score = 7;
 }
 //总结算
 message NoticeTotalSattle {
