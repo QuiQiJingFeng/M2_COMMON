@@ -462,6 +462,7 @@ message SattleItem{
 message NoticeTotalSattle {
 	required int32 room_id = 1;
 	repeated SattleItem sattle_list = 2;
+	required string begin_time = 3;
 }
 
 
