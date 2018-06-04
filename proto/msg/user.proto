@@ -126,7 +126,7 @@ message GameCmdReq {
 	optional int32 nowType = 6;
 	optional int32 nowValue = 7;
 	repeated int32 cardList = 8;
-	repeated int32 cardNums = 9;
+	optional int32 cardNums = 9;
 	// -------ddz_end------------
 
 	// -------商丘麻将添加字段
