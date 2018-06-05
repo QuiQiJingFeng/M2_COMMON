@@ -468,4 +468,7 @@ message NoticeTotalSattle {
 	required string begin_time = 3;
 }
 
-
+// 传输声音
+message SendAudio{
+	required bytes data = 1; 
+}

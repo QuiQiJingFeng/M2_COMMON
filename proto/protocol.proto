@@ -27,7 +27,7 @@ message C2S {
 
     optional msg.user.GetMyRoomListReq get_my_room_list = 10008;   //获取房间列表信息
 
-
+    optional msg.user.SendAudio send_audio = 10009; //传输音频
 
     //===================ddz相关====================
 
