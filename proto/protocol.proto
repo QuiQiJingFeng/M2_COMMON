@@ -88,7 +88,8 @@ message S2C {
     
     optional msg.user.NoticeSpecailEvent notice_special_event = 2020;                    // 通知有人吃碰杠胡
     
-    optional msg.user.NoticeTingCard notice_ting_card = 2021;    
+    optional msg.user.NoticeTingCard notice_ting_card = 2021;   
+    optional msg.user.NoticeYingKou  notice_ying_kou = 2022;                    //通知有人硬扣
     
     
 

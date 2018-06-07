@@ -110,6 +110,7 @@ message SitDownRsp {
 // DEMAND 	叫分
 // BACK_ROOM  //返回房间
 // TING_CARD    //听牌
+// YING_KOU     //硬扣  不需要传递其他参数,只需要传递command就可以了
 
 // demandPoint 		// ddz当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 // SendCards  	// ddz出牌的数组
@@ -471,4 +472,10 @@ message NoticeTotalSattle {
 // 传输声音
 message SendAudio{
 	required bytes data = 1; 
+}
+
+// 硬扣
+message NoticeYingKou{
+	required int32 user_pos = 1;
+	required int32 card = 2;
 }
