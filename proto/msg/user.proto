@@ -474,6 +474,12 @@ message SendAudio{
 	required bytes data = 1; 
 }
 
+// 传输声音
+message NoticeSendAudio{
+	required bytes data = 1;
+	required int32 user_pos = 2;
+}
+
 // 硬扣
 message NoticeYingKou{
 	required int32 user_pos = 1;
