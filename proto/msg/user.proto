@@ -370,7 +370,8 @@ message PushAllRoomInfo {
 	repeated int32 cur_table_Demand = 17; 		// 当前玩家叫的分， 注意欢乐斗地主应该有2
 	repeated int32 cur_table_bDouble = 18;		// 是否有加倍
 	repeated int32 cur_table_time = 19;			// 当前房间倍数
-	repeated int32 cur_last_CardNums = 20;			// 当前房间倍数
+	repeated int32 cur_last_CardNums = 20;		// 当前桌面上3个人剩余的排数
+	repeated int32 cBaseCards = 21;				// 当前房间的底牌，（没有地主的时候底牌为空）
 
 }
 /*-------------------------------------------------*/
