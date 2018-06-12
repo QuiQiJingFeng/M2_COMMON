@@ -346,23 +346,31 @@ message ItemStack {
 
 message PushAllRoomInfo {
 	required RefreshRoomInfo refresh_room_info = 1;
-	repeated int32 card_list = 2;           //玩家的手牌
-	optional string operator = 3;           //如果当前是本人操作,则返回,否则不返回
-	optional int32 cur_play_pos = 4;        // 当前的出牌人
-	optional int32 zpos = 5;				// 庄家位置
-	repeated PutCard put_cards = 6;         // 玩家出的牌
-	optional int32 reduce_num = 7;          //剩余牌数
-	repeated HandleNum handle_nums = 8;   //玩家手牌的个数
-	optional int32 put_card = 9;            //牌桌上最后出的一张牌
-	optional string cur_play_operator = 10;  // 当前出牌人的操作
-	optional int32 put_pos = 11;             // 最后一个出牌人
+	repeated int32 card_list = 2;           	// 玩家的手牌
+	optional string operator = 3;           	// 如果当前是本人操作,则返回,否则不返回
+	optional int32 cur_play_pos = 4;        	// 当前的出牌人
+	optional int32 zpos = 5;					// 庄家位置(地主位置)
+	repeated PutCard put_cards = 6;         	// 玩家出的牌
+	optional int32 reduce_num = 7;          	// 剩余牌数
+	repeated HandleNum handle_nums = 8;   		// 玩家手牌的个数
+	optional int32 put_card = 9;            	// 牌桌上最后出的一张牌
+	optional string cur_play_operator = 10;  	// 当前出牌人的操作
+	optional int32 put_pos = 11;            	// 最后一个出牌人
 
 	//新增字段 将操作从字符串改为数组,红中麻将仍沿用之前的字段
-	repeated string operators = 12;           //如果当前是本人操作,则返回,否则不返回
-	repeated string cur_play_operators = 13;  // 当前出牌人的操作
-	optional int32 card = 14;                 // 如果有card则说明是摸牌出牌,否则是碰牌出牌
+	repeated string operators = 12;           	// 如果当前是本人操作,则返回,否则不返回
+	repeated string cur_play_operators = 13;  	// 当前出牌人的操作
+	optional int32 card = 14;                 	// 如果有card则说明是摸牌出牌,否则是碰牌出牌
 
-	repeated ItemStack card_stack = 15;          //碰杠吃列表
+	repeated ItemStack card_stack = 15;         // 碰杠吃列表
+
+	//--------------------ddz---------------------------
+	repeated int32 cur_table_cards = 16;		// 当前3个人在桌面上出的牌
+	repeated int32 cur_table_Demand = 17; 		// 当前玩家叫的分， 注意欢乐斗地主应该有2
+	repeated int32 cur_table_bDouble = 18;		// 是否有加倍
+	repeated int32 cur_table_time = 19;			// 当前房间倍数
+	repeated int32 cur_last_CardNums = 20;			// 当前房间倍数
+
 }
 /*-------------------------------------------------*/
 
