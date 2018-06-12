@@ -27,7 +27,7 @@ message C2S {
 
     optional msg.user.GetMyRoomListReq get_my_room_list = 10008;   //获取房间列表信息
 
-
+    optional msg.user.SendAudio send_audio = 10009; //传输音频
 
     //===================ddz相关====================
 
@@ -88,8 +88,10 @@ message S2C {
     
     optional msg.user.NoticeSpecailEvent notice_special_event = 2020;                    // 通知有人吃碰杠胡
     
-    optional msg.user.NoticeTingCard notice_ting_card = 2021;    
-    
+    optional msg.user.NoticeTingCard notice_ting_card = 2021;   
+    optional msg.user.NoticeYingKou  notice_ying_kou = 2022;                    //通知有人硬扣
+    optional msg.user.NoticeSendAudio notice_send_audio = 2023;                       //通知有人说话
+
     
 
 
