@@ -23,6 +23,17 @@ enum Result {
 	no_position = 19;         //没有位置了
 }
 
+
+message FastSpakeReq {
+	required int32  user_pos = 1;	  // 快捷发言的玩家
+	required string fast_index = 2;   // 快捷发言的下标或者字符串【客户端自己下个定义， 前端传什么， 后端就返回什么】
+}
+
+message NoticeFastSpake {
+	required int32  user_pos = 1;	  // 快捷发言的玩家
+	required string fast_index = 2;   // 快捷发言的下标或者字符串【客户端自己下个定义， 前端传什么， 后端就返回什么】
+}
+
 //	AN_GANG
 //	MING_GANG
 //	PENG_GANG
@@ -65,7 +76,7 @@ message CreateRoomRsp {
 	required Result result = 1;
 }
 /*-------------------------------------------------*/
-
+ 
 /*------------------加入房间----------------------*/
 
 message JoinRoomReq {
