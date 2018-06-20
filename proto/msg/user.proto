@@ -229,6 +229,8 @@ message DealCard {
 
 	//商丘麻将的额外参数
 	repeated FourCardItem four_card_list = 6;            // 亮4打1 的四张牌
+	//飘癞子需要发一个癞子牌
+	optional int32 huicard = 7;  					//癞子牌 
 }
 /*-------------------------------------------------*/
 
@@ -384,6 +386,9 @@ message PushAllRoomInfo {
 	repeated int32 cur_last_CardNums = 20;		// 当前桌面上3个人剩余的排数
 	repeated int32 cBaseCards = 21;				// 当前房间的底牌，（没有地主的时候底牌为空）
 
+ 
+	optional int32 huicard = 22;              //癞子牌
+	repeated FourCardItem four_card_list = 23;            // 亮4打1 的四张牌
 }
 /*-------------------------------------------------*/
 
@@ -492,6 +497,10 @@ message NoticeTotalSattle {
 // 传输声音
 message SendAudio{
 	required bytes data = 1; 
+}
+
+message SendAudioRsp{
+	required string result = 1; 
 }
 
 // 传输声音

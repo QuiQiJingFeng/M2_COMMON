@@ -98,7 +98,8 @@ message S2C {
 
     optional msg.user.NoticeSendAudio notice_send_audio = 2023;                       //通知有人说话
     optional msg.user.NoticeFastSpake notice_fast_spake = 2024;                       //通知有人快捷发言
-
+    optional msg.user.SendAudioRsp send_audio = 2025; //传输音频返回
+ 
     
 
 
