@@ -256,6 +256,8 @@ message PushPlayCard {
 
 	// ddz
 	repeated int32 userCardNum = 6;
+
+	repeated FourCardItem four_card_list = 7;
 }
 
 /*-------------------------------------------------*/
