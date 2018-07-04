@@ -64,8 +64,9 @@ message RoomSetting {
 	required bool is_friend_room = 5; //是否只让好友进入
 	required bool is_open_voice = 6; //是否开启语音聊天
 	required bool is_open_gps = 7;   //是否开启GPS防作弊
-	repeated int32 other_setting = 8; //具体游戏的设置	
-	required int32 owner_id = 9;	  // 房主UESRID 
+	required int32 owner_id = 8;	  // 房主UESRID 
+	repeated int32 other_setting = 9; //具体游戏的设置	
+
 }
 
 /*--------------------创建房间----------------------*/
