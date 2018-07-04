@@ -211,7 +211,7 @@ message SitItem {
 message PushSitDown {
 	required int32 room_id = 1;
 	repeated SitItem sit_list = 2;
-	required int32 cur_round = 1;	// 当前局数
+	required int32 cur_round = 3;	// 当前局数
 }
 /*-------------------------------------------------*/
 
