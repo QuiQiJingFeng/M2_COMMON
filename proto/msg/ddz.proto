@@ -43,20 +43,21 @@ message NoticePointDemand {
 	required int32  userDemand = 2; 	// 当前玩家叫分
 }
 
-
+//
 message NoticeMainPlayer {
 
-	required int32 	userExtra = 1;		//  庄家的座位号
-	repeated int32  baseCard = 2; 		// 	底牌
+	required int32 	userExtra = 1;		// 庄家的座位号
+	repeated int32  baseCard = 2; 		// 底牌
+	required int32  iRoomTime = 3; 		// 当前房间底分
 }
 
 
 message Item {
-	required string user_id = 1;   //玩家ID
-	required int32 	user_pos = 2;   //玩家的位置
-	required float  cur_score = 3; //玩家当前局的积分
-	required float  score = 4;     //玩家的总积分
-	repeated int32  card_list = 5; //玩家手里的牌
+	required string user_id = 1;    // 玩家ID
+	required int32 	user_pos = 2;   // 玩家的位置
+	required float  cur_score = 3;  // 玩家当前局的积分
+	required float  score = 4;      // 玩家的总积分
+	repeated int32  card_list = 5;  // 玩家手里的牌
 }
 
 
