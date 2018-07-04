@@ -267,6 +267,7 @@ message NoticePlayCard {
 	required int32 user_id = 1;
 	required int32 card = 2;
 	optional int32 user_pos = 3;
+	repeated FourCardItem four_card_list = 4;
 }
 /*-------------------------------------------------*/
 
