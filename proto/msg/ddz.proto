@@ -9,13 +9,13 @@ package msg.ddz;
 
 /*-------------------C2S(客户端发送给服务器)-----------------*/
 message ReqPointDemand {
-	required int32  userDemand = 1; 	// 当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
+	required int32 userDemand = 1; 	// 当前玩家叫分(斗地主，0,1,2,3 表示分数， 欢乐斗地主只有0和1, 叫或者不叫)
 }
  
 message ReqSendCard {
-	required int32  nowType = 1;		// 当前出的牌的类型。(-1 是过)
-	required int32  nowValue = 2;		// 当前牌的最大类型值(飞机，最大值应该是飞机的最大的那个值， 而不是取最大的牌值)
-	repeated int32  cardList = 3; 		// 出牌消息
+	required int32 nowType = 2;		// 当前出的牌的类型。(-1 是过)
+	required int32 nowValue = 3;		// 当前牌的最大类型值(飞机，最大值应该是飞机的最大的那个值， 而不是取最大的牌值)
+	repeated int32  cardList = 4; 		// 出牌消息
 }
 
 
@@ -41,6 +41,7 @@ message ServerSendCard {
 message NoticePointDemand {
 	required int32 	userExtra = 1;		// 当前轮到谁叫分(座位号)
 	required int32  userDemand = 2; 	// 当前玩家叫分
+	required int32  nowTableTime = 3;	// 当前桌面上的倍数
 }
 
 //
@@ -49,6 +50,7 @@ message NoticeMainPlayer {
 	required int32 	userExtra = 1;		// 庄家的座位号
 	repeated int32  baseCard = 2; 		// 底牌
 	required int32  iRoomTime = 3; 		// 当前房间底分
+	required int32  nowTableTime = 4;	// 当前桌面上的倍数
 }
 
 
@@ -62,32 +64,30 @@ message Item {
 
 
 message NoticeDDZGameOver {
-
-	required int32 	over_type = 1;     	// 1 正常结束 2 流局 3 房间解散会发送一个结算
-	repeated Item 	players = 2;       	// 玩家的信息 * 3
-	required bool  	bIfSpring = 3;		// 是否春天
-	required int32 	iTime = 4;			// 房间倍数
-	required int32 	iBoomNums = 5;		// 炸弹的个数
-	repeated int32 	iLastCard = 6;		// 剩下的牌，最多传两家的， 不用传3家 
+	required int32  nowTableTime = 1;	// 当前桌面上的倍数
+	required int32 	over_type = 2;     	// 1 正常结束 2 流局 3 房间解散会发送一个结算
+	repeated Item 	players = 3;       	// 玩家的信息 * 3
+	required bool  	bIfSpring = 4;		// 是否春天
+	required int32 	iTime = 5;			// 房间倍数
+	required int32 	iBoomNums = 6;		// 炸弹的个数
+	repeated int32 	iLastCard = 7;		// 剩下的牌，最多传两家的， 不用传3家 
 }
 
 
 message NoticeSendCard {
-		
-	required int32  userExtra = 1; 		// 当前出牌人的座位号	
-	required int32  cCardNum = 2;		// 当前出的牌的类型。(-1 是过)
-	required int32  cCardType = 3;		// 当前牌的最大类型值(飞机，最大值应该是飞机的最大的那个值， 而不是取最大的牌值)
-	required int32  cCardValue = 4; 	// 出牌消息
-	required int32  cLestCardNum = 5; 	// 出牌消息
-
-	repeated int32  cCards = 6; 		//剩余多少张牌(自己的)
+	required int32  nowTableTime = 1;	// 当前桌面上的倍数
+	required int32  userExtra = 2; 		// 当前出牌人的座位号	
+	required int32  cCardNum = 3;		// 当前出的牌的类型。(-1 是过)
+	required int32  cCardType = 4;		// 当前牌的最大类型值(飞机，最大值应该是飞机的最大的那个值， 而不是取最大的牌值)
+	required int32  cCardValue = 5; 	// 出牌消息
+	required int32  cLestCardNum = 6; 	// 出牌消息
+	repeated int32  cCards = 7; 		//剩余多少张牌(自己的)
 }
 
 
-
-
-
 /*-------------------斗地主叫分通知end--------------*/
+
+
 
 
 
