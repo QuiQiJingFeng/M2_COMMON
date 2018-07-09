@@ -21,6 +21,12 @@ enum Result {
 	no_permission_distroy = 17;//没有权限解散房间
 	current_in_room = 18;     //当前在房间当中
 	no_position = 19;         //没有位置了
+	operator_error = 20;      //操作错误, 可能是数据异常 也可能是逻辑异常 也有可能是操作异常
+	in_four_cardlist = 21;    //当前牌不能出
+	already_ting_card = 22;   //已经听牌了不能再次听牌
+	must_zimo = 23;           //必须自摸胡牌
+	can_not_hui_card = 24;    //不能出癞子牌
+	not_allow_ting = 25;        //不允许听牌
 }
 
 
