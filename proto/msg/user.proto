@@ -61,6 +61,8 @@ message UserInfo {
 	required float cur_score = 9;       //玩家当前局的积分
 	required bool disconnect = 10;
 	optional int32  sex = 11;            //sex = 1 为男
+	optional double latitude = 12;     // 当前的维度
+    optional double lontitude = 13;    // 当前的经度
 }
 
 message RoomSetting {
@@ -192,8 +194,6 @@ message PushUserInfo {
 	optional int32  gold_num = 5;
 	repeated RoomItem  room_list = 6;   //玩家创建或加入过的房间的显示信息
 	optional int32  room_id = 7;        //如果玩家在游戏当中，则返回这个room_id
-	optional double latitude = 8;     // 当前的维度
-    optional double lontitude = 9;    // 当前的经度
 }
 
 //刷新房间的状态,用来显示界面用
