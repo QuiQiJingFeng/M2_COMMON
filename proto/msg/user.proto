@@ -253,7 +253,8 @@ message DealCard {
 message PushDrawCard {
 	optional int32 user_id = 1;
 	optional int32 card = 2;	//如果不是本人摸牌,则没有card
-	optional int32 user_pos = 3;	
+	optional int32 user_pos = 3;
+	optional bool in_liangsidayi = 4;	
 }
 /*-------------------------------------------------*/
 
