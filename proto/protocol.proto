@@ -100,6 +100,7 @@ message S2C {
     optional msg.user.NoticeFastSpake notice_fast_spake = 2024;                       //通知有人快捷发言
     optional msg.user.SendAudioRsp send_audio = 2025; //传输音频返回
     optional msg.user.NoticePao notice_pao = 2026;    //通知客户端下跑
+    optional msg.user.PushPlayerPao push_player_pao = 2027;  //通知玩家有人跑
     
     
 
